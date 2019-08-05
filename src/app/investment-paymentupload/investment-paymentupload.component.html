@@ -1,0 +1,79 @@
+<app-memberheader></app-memberheader>
+
+<div *ngIf="payUpload">
+  <br/><br/><br/>
+  <div *ngIf="currentFileUpload" class="progress">
+    <div class="progress-bar progress-bar-info progress-bar-striped"
+      role="progressbar" attr.aria-valuenow="{{progress.percentage}}"
+      aria-valuemin="0" aria-valuemax="100"
+      [ngStyle]="{width:progress.percentage+'%'}">
+      {{progress.percentage}}%</div>
+  </div>
+  <form name="form" (ngSubmit)="f.form.valid && upload()" #f="ngForm" novalidate>
+    <div class="col-sm-8">
+        <alert></alert>
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !treeName.valid }">
+          <label for="treeName" style="margin-left: 5px;">Tree Name*</label>
+          <select class="form-control" name="treeName" style="width: 263px;margin-left: 4px;" [(ngModel)]="model.treeName" #treeName="ngModel" required>
+            <option value="publicTree">Public Tree</option>
+            <option value="privateTree">Private Tree</option>
+            <option value="ownTree">Own Tree</option>
+
+          </select>
+          <div *ngIf="f.submitted && !treeName.valid" class="help-block" style="margin-left: 5px;">Tree Name is required</div>
+        </div>
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !invoiceNumber.valid }">
+            <label for="invoiceNumber" style="margin-left: 5px;">Invoice Number*</label>
+            <input type="text" class="form-control" style="width: 263px;margin-left: 4px;margin-bottom: 0px;" name="invoiceNumber" [(ngModel)]="model.invoiceNumber" 
+                #invoiceNumber="ngModel" required />
+            <div *ngIf="f.submitted && !invoiceNumber.valid" class="help-block" style="margin-left: 5px;">Invoice Number is required</div>
+        </div>
+    
+        <div class="form-group">
+            <label  for="c"> </label>
+            <input type="file" (change)="selectFile($event)" class="form-control" style="width: 263px;margin-left: 4px;">
+            <br/><br/><br/>
+        </div>
+        
+        <div class="form-group" style="margin-left: 6px;margin-top: -33px;">
+            <button class="btn btn-success" [disabled]="!selectedFiles" style="width: 75px;height: 40px;font-size: 14px;border-radius: 6px;">Upload</button>
+            <a (click)="home()" class="btn btn-primary" style="width: 75px;height:40px;font-size: 14px;border-radius: 6px;">Cancel</a> 
+        </div>
+    </div>
+  </form>
+</div>
+
+<div  class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':success}"  style="margin-top:-3%;height: 300%;">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title">Confirmation</h4>
+          </div>
+          <div class="modal-body">
+              <p>Payment upload is Succesfully done.</p>
+              <div class="modal-footer">
+                  <button type="button" class="success" (click)="onCloseHandled()" >Close</button>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+<div  class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':failure}"  style="margin-top:-3%;height: 300%;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Confirmation</h4>
+            </div>
+            <div class="modal-body">
+                <p>Invoice Number Not Match.Please Enter correct invoiceNumber</p>
+                <div class="modal-footer">
+                    <button type="button" class="success" (click)="onCloseHandled()" >Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    

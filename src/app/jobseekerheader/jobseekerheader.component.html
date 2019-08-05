@@ -1,0 +1,51 @@
+ 
+
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+    
+      <a class="navbar-brand"  [routerLink]="['/home']"> 
+          <div class="navbar-header">       
+          <img [src]="imgsrc" id="logoImage">        
+          </div> 
+        </a>
+    
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+       <!-- <li class="active"><a href="#">Member</a></li> -->
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Member <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a [routerLink]="['/register']">Member Sign Up</a></li>
+            <li><a  [routerLink]="['/login']">Member login </a></li>
+
+          </ul>
+        </li>
+
+     <!--   <li class="active"><a href="#">Employer</a></li> -->
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Employer <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a [routerLink]="['/employersignup']">Employer Sign Up</a></li>
+            <li><a [routerLink]="['/employerlogin']">Employer Login</a></li>
+
+          </ul>
+        </li>
+
+     <!--   <li><a href="#">Page 2</a></li>
+        <li><a href="#">Page 3</a></li> -->
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a [routerLink]="['/jobseekersignup']"><span class="glyphicon glyphicon-user"></span> Job Seeker's Sign Up</a></li>
+        <li><a [routerLink]="['/jobseekerlogin']"><span class="glyphicon glyphicon-log-in"></span> Job Seeker's Login</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>

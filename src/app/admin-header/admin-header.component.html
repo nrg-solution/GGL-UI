@@ -1,0 +1,194 @@
+<nav class="navbar navbar-inverse">
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>                        
+    </button>
+  
+    <a class="navbar-brand" [routerLink]="['/admin-header']"> 
+        <div class="navbar-header">       
+          <img [src]="imgsrc" id="logoImage">        
+        </div> 
+    </a>
+  
+  </div>
+  <div class="collapse navbar-collapse" id="myNavbar">
+    <ul class="nav navbar-nav">
+      <!-- <li class="active"><a href="#">Member</a></li> -->
+      <!--   <li class="active"><a href="#">Employer</a></li> -->
+
+      <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Approval <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a (click)="getPublicTreeNonApprovedData()"> <span class="glyphicon glyphicon-chevron-right"></span> Public Tree</a></li>
+          <li><a (click)="getOwnTreeNonApprovedData()"> <span class="glyphicon glyphicon-chevron-right"></span> Own Tree</a></li>
+    <li><a (click)="getPrivateTreeNonApprovedData()"> <span class="glyphicon glyphicon-chevron-right"></span> Private Tree</a></li>
+    </ul>
+      </li>
+    
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+        <li><a [routerLink]="['/login']"><span class="fa fa-sign-out"></span> Log out</a></li>
+      </ul>
+  </div>
+</nav>
+
+<section class="content-header">
+  <div *ngIf="publicTree"> 
+    <div class="text-center">
+      <h2>Public Tree Unit List </h2>
+    </div>
+    <alert></alert>
+      <div *ngFor="let public of pulbicMemberList">
+          <div class="col-sm-4 col-xs-12">
+            <div class="panel panel-default text-center">
+              <div class="panel-heading">
+                <h1>Pay Status : {{ public.paymentStatus }}</h1>
+                
+              </div>
+          
+              <div class="panel-footer">
+                
+                  Invoice Code:    <label style="font-size: 16px;"> {{ public.invoiceCode }} </label> <br/>
+                  PayAmount:   <label style="font-size: 16px;"> {{ public.payAmount }} </label>
+                </div>
+                <button (click)="approvePublicUnit(public.invoiceCode)">Approve</button>
+                <button (click)="rejectPublicUnit(public.invoiceCode)">Reject</button>
+                <button (click)="publicViewPayment(public.invoiceCode)">View Payment</button>
+              </div>      
+          </div>  
+          </div>
+    
+    </div> 
+  <div *ngIf="privateTree">   
+      <div class="text-center">
+          <h2>Private Tree Unit List </h2>
+        </div>
+    <div *ngFor="let private of privateMemberList">
+      <div class="col-sm-4 col-xs-12">
+        <div class="panel panel-default text-center">
+          <div class="panel-heading">
+            <h1>Pay Status : {{ private.paymentStatus }}</h1>
+            
+          </div>
+      
+          <div class="panel-footer">
+            
+              Invoice Code:   <label style="font-size: 16px;" >  {{ private.invoiceCode }} </label> <br/>
+              Tree Name:    <label style="font-size: 16px;"> {{ private.treeName }} </label> <br/>
+            </div>
+            <button (click)="approvePrivateUnit(private.invoiceCode)">Approve</button>
+            <button (click)="rejectPrivateUnit(private.invoiceCode)">Reject</button>
+            <button (click)="privateViewPayment(private.invoiceCode)">View Payment</button>
+        </div>      
+      </div>  
+      </div> </div> 
+  <div *ngIf="ownTree">  
+
+    <div class="text-center">
+      <h2>Own Tree Unit List </h2>
+    </div>
+    <div *ngFor="let owntree of ownMemberList">
+      <div class="col-sm-4 col-xs-12">
+        <div class="panel panel-default text-center">
+          <div class="panel-heading">
+            <h1>Pay Status : {{ owntree.paymentStatus }}</h1>
+            
+          </div>
+      
+          <div class="panel-footer">
+            
+              Invoice Code:   <label style="font-size: 16px;" >  {{ owntree.invoiceCode }} </label> <br/>
+              Tree Name:    <label style="font-size: 16px;"> {{ owntree.treeName }} </label> <br/>
+            </div>
+            <button (click)="approveOwnUnit(owntree.invoiceCode)">Approve</button>
+            <button (click)="rejectOwnUnit(owntree.invoiceCode)">Reject</button>
+            <button (click)="ownViewPayment(owntree.invoiceCode)">View Payment</button>
+        </div>      
+      </div>  
+      </div>
+
+  </div> 
+
+  <div  class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':paymentDialog}"  style="margin-top:8%;height: 300%;">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div>
+            <div class="panel panel-primary">
+              <div class="panel-heading">Payment View</div>
+              <div *ngFor="let file of paymentUploads | async">
+                <div class="panel-body">
+                  <details-upload [fileUpload]='file'></details-upload>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="onCloseHandled()" >Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div  class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':publicUnitReject}"  style="margin-top:-3%;height: 300%;">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div>
+            <div class="panel panel-primary">
+              <div class="panel-heading">Reject Alert !</div>
+            </div>
+            Successfully Rejected the Unit..
+
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="onClosePublicReject()" >Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div  class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':publicUnitApprove}"  style="margin-top:-3%;height: 300%;">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div>
+            <div class="panel panel-primary">
+              <div class="panel-heading">Approved Alert !</div>
+            </div>
+            Successfully Approved the Unit..
+
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="onClosePublicApprove()" >Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div  class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':networkError}"  style="margin-top:-3%;height: 300%;">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div>
+            <div class="panel panel-primary">
+              <div class="panel-heading">NetWork Error Alert !</div>
+            </div>
+            Network Error ! 
+
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="onCloseNetWorkError()" >Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

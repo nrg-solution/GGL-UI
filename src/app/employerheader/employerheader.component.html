@@ -1,0 +1,45 @@
+ 
+
+
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>                        
+        </button>
+      
+        <a class="navbar-brand"  [routerLink]="['/home']"> 
+            <div class="navbar-header">       
+            <img [src]="imgsrc" id="logoImage">        
+            </div> 
+          </a>
+      
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav">
+         <!-- <li class="active"><a href="#">Member</a></li> -->
+         
+  
+       <!--   <li class="active"><a href="#">Employer</a></li> -->
+         
+  
+        <li><a [routerLink]="['/employerhome']">My Profile</a></li>
+          <li><a [routerLink]="['/employerhome']">Search Profile</a></li> 
+          <li><a [routerLink]="['/employerhome']">Advance Search</a></li> 
+          <li><a [routerLink]="['/employerhome']">Fresher</a></li> 
+  
+        </ul>
+  
+  
+        <ul class="nav navbar-nav navbar-right">
+            <li><a [routerLink]="['/login']"><span class="fa fa-sign-out"></span> Log out</a></li>
+          </ul>
+      </div>
+  
+      
+  
+    </div>
+  </nav>
+  

@@ -1,0 +1,11 @@
+.footer {
+    background-color:#0078D7;
+}
+
+
+@media (max-width: 767px) {
+.navbar-inverse .navbar-nav .open .dropdown-menu>li>a {
+    color: #f6f2f7;
+}
+}
+
