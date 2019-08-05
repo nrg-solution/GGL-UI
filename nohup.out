@@ -1,0 +1,9 @@
+
+> ggl-ui@0.0.0 start /home/ec2-user/ggl-ui
+> ng serve --host 0.0.0.0
+
+** NG Live Development Server is listening on 0.0.0.0:8082, open your browser on http://localhost:8082/ **
+
+> ggl-ui@0.0.0 start /home/ec2-user/trio-ui
+> ng serve --host 0.0.0.0
+
