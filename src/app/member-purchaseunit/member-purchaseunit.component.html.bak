@@ -1,0 +1,564 @@
+<app-memberheader></app-memberheader>
+<div *ngIf="div0">
+
+    <div class="text-center">
+        <h2>Package Plan </h2>
+        <h4>Choose a type of Category that works for you</h4>
+      </div>
+      
+      <div class="col-sm-4 col-xs-12">
+        <div class="panel panel-default text-center">
+          <div class="panel-heading">
+            <h1>Public Tree</h1>
+          </div>
+          <div class="panel-body">
+          
+          </div>
+          <div class="panel-footer">
+            <button (click)="selectPublic()" id="selectPublic" class="btn btn-lg">Process</button>
+
+          </div>
+        </div>      
+      </div>     
+      
+      
+      <div class="col-sm-4 col-xs-12">
+        <div class="panel panel-default text-center">
+          <div class="panel-heading">
+            <h1>Own Tree</h1>
+          </div>
+          <div class="panel-body">
+          
+          </div>
+          <div class="panel-footer">
+            <button (click)="selectOwnTree()" id="selectPrivate" class="btn btn-lg">Process</button>
+          </div>
+        </div>      
+      </div>  
+      
+      
+      <div class="col-sm-4 col-xs-12">
+        <div class="panel panel-default text-center">
+          <div class="panel-heading">
+            <h1>Private Tree</h1>
+          </div>
+          <div class="panel-body">
+          
+          </div>
+          <div class="panel-footer">
+            <button (click)="selectPrivate()" id="selectOwnTree" class="btn btn-lg">Process</button>
+          </div>
+        </div>      
+      </div>  
+</div>
+
+	<!-- Yes To Remvoe category start -->
+  
+  	<div class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':unitSuccessDialog}">
+
+    <div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" aria-label="Close" (click)="onCloseHandled()"></button>
+				<h4 class="modal-title">Public Unit | Success</h4>
+			</div>
+			<div class="modal-body">  
+				<p>Thanks and Successfully purchase  Public Unit</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" class="success" (click)="onCloseHandled()" >Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':OwnTreeSuccessDialog}">
+
+  <div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" aria-label="Close" (click)="onCloseHandled2()"></button>
+      <h4 class="modal-title">Own Tree Success</h4>
+    </div>
+    <div class="modal-body">  
+      <p>Thanks and Successfully purchase  Unit</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" class="success" (click)="onCloseHandled2()" >Close</button>
+    </div>
+  </div>
+</div>
+</div>
+
+
+<div class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':privateSuccessDialog}">
+
+    <div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" aria-label="Close" (click)="onCloseHandled3()"></button>
+				<h4 class="modal-title">Private Tree success</h4>
+			</div>
+			<div class="modal-body">  
+				<p>Thanks and Successfully purchase  Unit</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" class="success" (click)="onCloseHandled3()" >Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<div *ngIf="div1">
+    <a (click)="homePage()" class="previous">&laquo; Previous</a>
+
+    <alert></alert>
+<div class="text-center">
+  <h2>Public Tree Package Plan</h2>
+ <!-- <h4>Choose a payment plan that works for you</h4> -->
+</div>
+
+<div id="test2" class="col-sm-4 col-xs-12">
+  <div class="panel panel-default text-center">
+    <div class="panel-heading">
+      <h1>1 Unit</h1>
+    </div>
+   
+    <div class="panel-footer">
+      <h3>100 SGD</h3>
+      <button (click)="createPublicUnit(1)" id="singleUnit">Order</button>
+
+
+    </div>
+  </div>      
+</div>     
+
+<div  class="col-sm-4 col-xs-12">
+    <div class="panel panel-default text-center">
+      <div class="panel-heading">
+        <h1>2 Units</h1>
+      </div>
+     
+      <div class="panel-footer">
+        <h3>200 SGD</h3>
+        <button (click)="createPublicUnit(2)" id="threeUnit">Order</button>
+      </div>
+    </div>      
+  </div>  
+  
+
+
+
+<div id="test3" class="col-sm-4 col-xs-12">
+  <div class="panel panel-default text-center">
+    <div class="panel-heading">
+      <h1>3 Units</h1>
+    </div>
+   
+    <div class="panel-footer">
+      <h3>300 SGD</h3>
+      <button (click)="createPublicUnit(3)" id="threeUnit" >Order</button>
+    </div>
+  </div>      
+</div>  
+
+
+<div id="test4" class="col-sm-4 col-xs-12">
+  <div class="panel panel-default text-center">
+    <div class="panel-heading">
+      <h1>4 Units</h1>
+    </div>
+    
+    <div class="panel-footer">
+      <h3>400 SGD</h3>
+      <button (click)="createPublicUnit(4)" id="fourUnit">Order</button>
+    </div>
+  </div>      
+</div>  
+
+
+
+<div id="test5" class="col-sm-4 col-xs-12">
+  <div class="panel panel-default text-center">
+    <div class="panel-heading">
+      <h1>5 Units</h1>
+    </div>
+    
+    <div class="panel-footer">
+      <h3>500 SGD</h3>
+      <button (click)="createPublicUnit(5)" id="fiveUnits" >Order</button>
+    </div>
+  </div>      
+</div>  
+
+
+
+<div id="test6" class="col-sm-4 col-xs-12">
+  <div class="panel panel-default text-center">
+    <div class="panel-heading">
+      <h1>More Units</h1>
+    </div>
+    
+    <div class="panel-footer">
+      <h3> SGD</h3>
+      <button (click)="createPublicUnit()" id="moreUnits" >Order</button>
+    </div>
+  </div>      
+</div>  
+
+</div>
+
+<div *ngIf="div2">
+  <a (click)="homePage()" class="previous">&laquo; Previous</a>
+
+  <alert></alert>
+<div class="text-center">
+<h2>Own Tree Package Plan</h2>
+<!-- <h4>Choose a payment plan that works for you</h4> -->
+</div>
+
+<div id="test2" class="col-sm-4 col-xs-12">
+<div class="panel panel-default text-center">
+  <div class="panel-heading">
+    <h1>1 Unit</h1>
+  </div>
+ 
+  <div class="panel-footer">
+    <h3>100 SGD</h3>
+    <button (click)="createOwnTree(1)" id="singleUnit">Create New Tree</button>
+
+
+  </div>
+</div>      
+</div>     
+
+<div  class="col-sm-4 col-xs-12">
+  <div class="panel panel-default text-center">
+    <div class="panel-heading">
+      <h1>2 Units</h1>
+    </div>
+   
+    <div class="panel-footer">
+      <h3>200 SGD</h3>
+      <button (click)="createOwnTree(2)" id="threeUnit">Create New Tree</button>
+    </div>
+  </div>      
+</div>  
+
+
+
+
+<div id="test3" class="col-sm-4 col-xs-12">
+<div class="panel panel-default text-center">
+  <div class="panel-heading">
+    <h1>3 Units</h1>
+  </div>
+ 
+  <div class="panel-footer">
+    <h3>300 SGD</h3>
+    <button (click)="createOwnTree(3)" id="threeUnit" >Create New Tree</button>
+  </div>
+</div>      
+</div>  
+
+
+<div id="test4" class="col-sm-4 col-xs-12">
+<div class="panel panel-default text-center">
+  <div class="panel-heading">
+    <h1>4 Units</h1>
+  </div>
+  
+  <div class="panel-footer">
+    <h3>400 SGD</h3>
+    <button (click)="createOwnTree(4)" id="fourUnit">Create New Tree</button>
+  </div>
+</div>      
+</div>  
+
+
+
+<div id="test5" class="col-sm-4 col-xs-12">
+<div class="panel panel-default text-center">
+  <div class="panel-heading">
+    <h1>5 Units</h1>
+  </div>
+  
+  <div class="panel-footer">
+    <h3>500 SGD</h3>
+    <button (click)="createOwnTree(5)" id="fiveUnits" >Create New Tree</button>
+  </div>
+</div>      
+</div>  
+
+
+
+<div id="test6" class="col-sm-4 col-xs-12">
+<div class="panel panel-default text-center">
+  <div class="panel-heading">
+    <h1>More Units</h1>
+  </div>
+  
+  <div class="panel-footer">
+    <h3> SGD</h3>
+    <button (click)="createOwnTree()" id="moreUnits" >Create New Tree</button>
+  </div>
+</div>      
+</div> 
+</div>
+
+<div *ngIf="div3">
+<div>
+    <a (click)="homePage()" class="previous">&laquo; Previous</a>
+ 
+</div>
+    <div class="col-md-6 col-md-offset-3">
+        <alert></alert>
+
+  <h3>Private Tree Form </h3>    
+  <form name="form" (ngSubmit)="f.form.valid && privateTree()" #f="ngForm" novalidate>   
+  
+      <br/>
+
+      
+
+    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !refmemberID.valid }">
+    
+      <label for="refmemberID">Own Tree Number *</label>
+          <input type="text" class="form-control" placeholder="Eg-GSP10" name="refmemberID" 
+        (change)="getTreeName()" [(ngModel)]="model.refmemberID" #refmemberID="ngModel" required />
+          <div *ngIf="f.submitted && !refmemberID.valid" class="help-block">GSP Number is required</div>
+     
+     
+         
+        </div>
+
+      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !numberofUnit.valid }">
+          <label for="state">Number of Units *</label>            
+       <select class="form-control" name ="numberofUnit"  [(ngModel)]="model.numberofUnit" #numberofUnit="ngModel" required>
+       <option *ngFor="let numberofUnit of uniteList" value="{{ numberofUnit }}"> {{ numberofUnit }} 
+       </option> 
+       </select>
+                   <div *ngIf="f.submitted && !numberofUnit.valid" class="help-block">Unit is required</div>
+       
+      </div>
+
+
+      <div class="form-group">
+          <button [disabled]="loading" class="btn btn-primary">Order</button>
+
+
+
+      </div>
+
+  
+    </form>
+    </div>
+</div>
+
+<div *ngIf="div6">
+
+    <div  class="col-sm-4 col-xs-12">
+        <a (click)="selectPublic()" class="previous">&laquo; Previous</a>
+
+        <div  style="width: 1000px;padding-left: 100px">
+          <div class="panel-heading">
+            <h1>Public Tree | Unit Invoice</h1>
+          </div>
+          
+          <div class="panel-footer">
+           <label>   Thank you for buy the Unit from GGL Investement:</label>
+           <div *ngFor="let invoice of invoiceList">
+            <h3>  Unit Invoice Number #: {{ invoice.invoiceNumber }} </h3>
+
+           </div>  
+
+           
+           <label>  Amount Details : {{ this.model.totalAmount }}  SGD </label>
+              
+              Note
+              Pleae make the payment via Wire transfer or Online payment 
+              
+              For and on behalf of
+              Global Gains Limited
+
+              
+          </div>
+          <button (click)="selectPublic()" id="singleUnit" class="btn btn-lg">Done</button>
+
+        </div>  
+        
+
+      </div>  
+      
+    </div>
+
+
+    <div *ngIf="div7">
+
+      <div  class="col-sm-4 col-xs-12">
+          <a (click)="selectOwnTree()" class="previous">&laquo; Previous</a>
+  
+          <div  style="width: 1000px;padding-left: 100px">
+            <div class="panel-heading">
+              <h1>Own Tree | Unit Invoice</h1>
+            </div>
+            
+            <div class="panel-footer">
+             <label>   Thank you for buy the Unit from GGL Investement:</label>
+             <h3 style="color: #9C27B0;">  Tree Name #: {{ this.model.treeName }} </h3>
+
+             
+             <div *ngFor="let invoice of invoiceList">
+
+              <h3>  Unit Invoice Number #: {{ invoice.invoiceNumber }} </h3>
+  
+             </div>  
+  
+             
+             <label>  Amount Details : {{ this.model.totalAmount }}  SGD </label>
+                
+                Note
+                Pleae make the payment via Wire transfer or Online payment 
+                
+                For and on behalf of
+                Global Gains Limited
+  
+                
+            </div>
+            <button (click)="selectOwnTree()" id="singleUnit" class="btn btn-lg">Done</button>
+  
+          </div>  
+          
+  
+        </div>  
+        
+      </div>
+
+
+
+      <div *ngIf="div8">
+
+          <div  class="col-sm-4 col-xs-12">
+              <a (click)="selectPrivate()" class="previous">&laquo; Previous</a>
+      
+              <div  style="width: 1000px;padding-left: 100px">
+                <div class="panel-heading">
+                  <h1>Private Tree | Unit Invoice</h1>
+                </div>
+                
+                <div class="panel-footer">
+                 <label>   Thank you for buy the Unit from GGL Investement:</label>
+    
+                 
+                 <div *ngFor="let invoice of invoiceList">
+    
+                  <h3>  Unit Invoice Number #: {{ invoice.invoiceNumber }} </h3>
+      
+                 </div>  
+      
+                 
+              <!--   <label>  Amount Details : 100 SGD </label> -->
+                 <label style="color: #9C27B0;">  Amount Details : {{ this.model.totalAmount }}  SGD </label>
+                    Note
+                    Pleae make the payment via Wire transfer or Online payment 
+                    
+                    For and on behalf of
+                    Global Gains Limited
+      
+                    
+                </div>
+                <button (click)="selectPrivate()" id="backToPrivate" class="btn btn-lg">Done</button>
+      
+              </div>  
+              
+      
+            </div>  
+            
+          </div>
+<div *ngIf="div5">
+    <div class="row">
+        <div class="col-75">
+          <div class="container">
+            <form action="/action_page.php">
+            
+              <div class="row">
+                <div class="col-50">
+                  <h3>Billing Address</h3>
+                  <label for="fname"><i class="fa fa-user"></i> Full Name</label>
+                  <input type="text" id="fname" name="firstname" placeholder="John M. Doe">
+                  <label for="email"><i class="fa fa-envelope"></i> Email</label>
+                  <input type="text" id="email" name="email" placeholder="john@example.com">
+                  <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
+                  <input type="text" id="adr" name="address" placeholder="542 W. 15th Street">
+                  <label for="city"><i class="fa fa-institution"></i> City</label>
+                  <input type="text" id="city" name="city" placeholder="New York">
+      
+                  <div class="row">
+                    <div class="col-50">
+                      <label for="state">State</label>
+                      <input type="text" id="state" name="state" placeholder="NY">
+                    </div>
+                    <div class="col-50">
+                      <label for="zip">Zip</label>
+                      <input type="text" id="zip" name="zip" placeholder="10001">
+                    </div>
+                  </div>
+                </div>
+      
+                <div class="col-50">
+                  <h3>Payment</h3>
+                  <label for="fname">Accepted Cards</label>
+                  <div class="icon-container">
+                    <i class="fa fa-cc-visa" style="color:navy;"></i>
+                    <i class="fa fa-cc-amex" style="color:blue;"></i>
+                    <i class="fa fa-cc-mastercard" style="color:red;"></i>
+                    <i class="fa fa-cc-discover" style="color:orange;"></i>
+                  </div>
+                  <label for="cname">Name on Card</label>
+                  <input type="text" id="cname" name="cardname" placeholder="John More Doe">
+                  <label for="ccnum">Credit card number</label>
+                  <input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444">
+                  <label for="expmonth">Exp Month</label>
+                  <input type="text" id="expmonth" name="expmonth" placeholder="September">
+                  <div class="row">
+                    <div class="col-50">
+                      <label for="expyear">Exp Year</label>
+                      <input type="text" id="expyear" name="expyear" placeholder="2018">
+                    </div>
+                    <div class="col-50">
+                      <label for="cvv">CVV</label>
+                      <input type="text" id="cvv" name="cvv" placeholder="352">
+                    </div>
+                  </div>
+                </div>
+                
+              </div>
+              <label>
+                <input type="checkbox" checked="checked" name="sameadr"> Shipping address same as billing
+              </label>
+              <input type="submit" value="Continue to checkout" class="btn">
+              <input  (click)="createPublicUnit('none')" value="Cancel" class="btn">
+
+            </form>
+          </div>
+        </div>
+       
+      </div>
+    </div>
+<div *ngIf="div4">
+       
+</div>  
+
+<!-- Loading Image Start -->
+	<div class="row">
+		<div class="col-md-5 col-xs-5 col-lg-5">			
+			<img *ngIf="loadinggif" class="loadingimage" src="/assets/images/loadingimage.gif"/> 
+		</div>
+		<div class="col-md-7 col-xs-7 col-lg-7">
+		</div>
+	</div>
+	<!-- Loading Image End -->
+

@@ -1,0 +1,108 @@
+<app-memberheader></app-memberheader>
+
+<div class="text-center">
+  <h2>Withdrawal details</h2>
+  <h4>Your earning details </h4>
+</div>
+
+
+<div class="col-sm-4 col-xs-12">
+  <div class="panel panel-default text-center">
+    <div class="panel-heading">
+      <h2>Commision</h2>
+    </div>
+    <div class="panel-body">
+      
+    </div>
+    <div class="panel-footer">
+      <h3> {{ this.model.memberCommition }}  SGD</h3>
+    </div>
+  </div>      
+</div>  
+
+<div class="col-sm-4 col-xs-12">
+  <div class="panel panel-default text-center">
+    <div class="panel-heading">
+      <h2>Overriding</h2>
+    </div>
+    <div class="panel-body">
+    
+    </div>
+    <div class="panel-footer">
+      <h3> {{ this.model.memberOvrriding }}  SGD</h3>
+    </div>
+  </div>      
+</div> 
+
+<div class="col-sm-4 col-xs-12">
+  <div class="panel panel-default text-center">
+    <div class="panel-heading">
+      <h2>Total Amount</h2>
+    </div>
+    
+    <div class="panel-footer">
+      <h3> {{ this.model.totalAmount }}  SGD</h3>
+      <button (click)="memberWithdraw()" id="withdraw" >Withdraw</button>
+    </div>
+  </div>      
+</div> 
+
+<div class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':successdialog}" style="margin-top: 90px;">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()"></button>
+        <h4 class="modal-title" style="color: white;">Confirmation</h4>
+      </div>
+      <div class="modal-body">
+        <p>Withdraw is requested successfully.If Admin approve then take amount.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" (click)="onCloseHandled()" >Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':failuredialog}" style="margin-top: 90px;">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()"></button>
+        <h4 class="modal-title" style="color: white;">Confirmation</h4>
+      </div>
+      <div class="modal-body">
+        <p>Failed to taken withdraw amount.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" (click)="onCloseHandled()" >Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':exsistdialog}" style="margin-top: 90px;">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()"></button>
+        <h4 class="modal-title" style="color: white;">Confirmation</h4>
+      </div>
+      <div class="modal-body">
+        <p>Please give the valid amount.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" (click)="onCloseHandled()" >Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+

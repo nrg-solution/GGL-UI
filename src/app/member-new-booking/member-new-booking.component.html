@@ -1,0 +1,912 @@
+<app-memberheader></app-memberheader>
+
+<br/><br/><br/>
+
+<div *ngIf="menu0"  class="section" id="tutorial-django-forms-with-angularjs">
+  <div class="col-sm-12 col-lg-8" style="-webkit-overflow-scrolling: touch;">
+    <alert></alert>
+    <div class="col-sm-12 col-lg-8">
+      <h2>Booking Menu</h2>
+      <form name="form1" (ngSubmit)="f.form.valid && saveReserNext()" #f="ngForm" novalidate>
+        <div class="form-group" [ngClass]="{'has-error':f.submitted && !selectedCountry.valid}">
+            <label for="country">Country*</label>            
+            <select class="form-control"  name ="selectedCountry" [(ngModel)]="model.selectedCountry" #selectedCountry="ngModel" (change)="onChooseCountry()" required>
+                <option *ngFor="let itemCountry of loadCountryList" value="{{ itemCountry }}"> {{ itemCountry }} </option> 
+            </select>
+            <div *ngIf="f.submitted && !selectedCountry.valid" class="help-block"> Country is required.</div>
+        </div>
+    
+        <!--  State --> 
+        <div class="form-group" [ngClass]="{'has-error':f.submitted && !selectedState.valid}">
+            <label for="state">State*</label>            
+            <select class="form-control" name ="selectedState"  [(ngModel)]="model.selectedState" #selectedState="ngModel"  (change)="onChooseCategory()" required>
+                <option *ngFor="let itemState of loadStateList" value="{{ itemState }}"> {{ itemState }} </option> 
+            </select>
+            <div *ngIf="f.submitted && !selectedState.valid" class="help-block"> State is required.</div>
+        </div> 
+    
+        <!-- Category name  -->
+        <div class="form-group" [ngClass]="{'has-error':f.submitted && !categoryname.valid}">
+            <label for="categoryname">Category Name*</label>          
+            <select class="form-control" name ="categoryname"  #categoryname="ngModel" [(ngModel)]="model.categoryname" required>
+              <option *ngFor="let itemCategory of loadcategorylist" value="{{ itemCategory }}"> {{ itemCategory }} </option> 
+            </select>
+            <div *ngIf="f.submitted && !categoryname.valid" class="help-block"> Category is required.</div>
+        </div>
+        <div class="form-group">
+            <button  class="btn btn-primary">Next</button>
+            <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Hotels & Restaurant div start --> 
+<div class="row" style="-webkit-overflow-scrolling: touch;">
+  <div *ngIf="menu1" class="section" id="tutorial-django-forms-with-angularjs" style="background-image: url('/assets/images/hotelImage.jpg');height: 900px;">
+    <div class="col-sm-12 col-lg-8">
+      <br/>
+      <alert></alert>
+      <div class="col-sm-12 col-lg-8">
+        <h2 style="color:yellow;">Food Reservation Form</h2>
+        <form name="form" (ngSubmit)="f.form.valid && saveReservation()" #f="ngForm" novalidate>
+
+            <div class="form-group">
+              <div class="col-md-5 col-xs-5 col-lg-5" style="color:white;font-size: 14px;font-weight: bold;padding-left: 0px;">Hotel/Restaurants Name</div>
+              <div class="col-md-1 col-xs-1 col-lg-1" style="color:white;font-size: 14px;font-weight: bold;">:</div>
+              <div class="col-md-6 col-xs-6 col-lg-6" id="country" style="color:white;font-size: 14px;font-weight: bold;">{{this.model.companyname}}</div>
+            </div><br/><br/>
+
+            <div class="form-group">
+              <div class="col-md-5 col-xs-5 col-lg-5" style="color:white;font-size: 14px;font-weight: bold;padding-left: 0px;">Country Name</div>
+              <div class="col-md-1 col-xs-1 col-lg-1" style="color:white;font-size: 14px;font-weight: bold;">:</div>
+              <div class="col-md-6 col-xs-6 col-lg-6" id="country" style="color:white;font-size: 14px;font-weight: bold;">{{this.model.selectedCountry}}</div>
+            </div><br/>
+
+            <div class="form-group">
+              <div class="col-md-5 col-xs-5 col-lg-5" style="color:white;font-size: 14px;font-weight: bold;padding-left: 0px;">State Name</div>
+              <div class="col-md-1 col-xs-1 col-lg-1" style="color:white;font-size: 14px;font-weight: bold;">:</div>
+              <div class="col-md-6 col-xs-6 col-lg-6" id="country" style="color:white;font-size: 14px;font-weight: bold;">{{this.model.selectedState}}</div>
+            </div><br/>
+
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !noofadult.valid }">
+                <label for="noofadult" style="color:white;">No.of Adult*</label>            
+                <select class="form-control" name="noofadult" [(ngModel)]="model.noofadult" #noofadult="ngModel" required>
+                  <option value="adult1">1 Adult</option>
+                  <option value="adult2">2 Adult</option>
+                  <option value="adult3">3 Adult</option>
+                  <option value="adult4">4 Adult</option>
+                  <option value="adult5">5 Adult</option>
+                </select> 
+                <div *ngIf="f.submitted && !noofadult.valid" class="help-block" style="background-color: red;color:white;width:160px;padding-left: 7px;">Adult is required</div>           
+            </div>
+          
+            <!-- Children -->  
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !noofchild.valid }">
+              <label for="noofchild" style="color:white;">No.of Children*</label>            
+               <select class="form-control" name="noofchild" [(ngModel)]="model.noofchild" #noofchild="ngModel" required>
+                <option value="child0">0 Child</option>
+                <option value="child1">1 Child</option>
+                <option value="child2">2 Child</option>
+                <option value="child3">3 Child</option>
+                <option value="child4">4 Child</option>
+                <option value="child5">5 Child</option>
+              </select>
+              <div *ngIf="f.submitted && !noofchild.valid" class="help-block" style="background-color: red;color:white;width:160px;padding-left: 7px;">Child is required</div>                       
+            </div>
+          
+            <!-- No of rooms -->
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !noofrooms.valid }">
+                <label for="noofrooms" style="color:white;">No.of Rooms*</label>            
+                <select class="form-control" name="noofrooms" [(ngModel)]="model.noofrooms" #noofrooms="ngModel" required>
+                  <option value="room1">1 Room</option>
+                  <option value="room2">2 Room</option>
+                  <option value="room3">3 Room</option>
+                  <option value="room4">4 Room</option>
+                  <option value="room5">5 Room</option>
+                </select> 
+                <div *ngIf="f.submitted && !noofrooms.valid" class="help-block" style="background-color: red;color:white;width:160px;padding-left: 7px;">Rooms is required</div>           
+            </div>
+
+            <!-- <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !bookingCode.valid }">
+              <label for="bookingCode" style="color:white;">Booking Code*</label>            
+              <input type="text" class="form-control"  name="bookingCode" [(ngModel)]="model.bookingCode" #bookingCode="ngModel" required/>
+              <div *ngIf="f.submitted && !bookingCode.valid" class="help-block" style="background-color: red;color:white;width:160px;padding-left: 7px;">Booking Code is required</div>
+            </div> -->
+
+            <!-- Booking Date-->
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !bookingdate.valid }">
+                <label for="Date" style="color:white;">Date*</label>            
+                <input type="date" class="form-control"  name="bookingdate" [(ngModel)]="model.bookingdate" #bookingdate="ngModel" required/>
+                <div *ngIf="f.submitted && !bookingdate.valid" class="help-block" style="background-color: red;color:white;width:160px;padding-left: 7px;">Date is required</div>
+            </div>
+
+            <!-- Booking Time -->
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !medicaltime.valid }">
+              <label for="Time" style="color:white;">Time*</label>            
+                <input type="time" class="form-control" name="medicaltime" [(ngModel)]="model.medicaltime" #medicaltime="ngModel" required/>
+              <div *ngIf="f.submitted && !medicaltime.valid" class="help-block" style="background-color: red;color:white;width:160px;padding-left: 7px;">Time is required</div>           
+            </div>
+
+            <!-- Number of tables -->
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !noofTables.valid }">
+              <label for="Table" style="color:white;">Number of tables*</label>            
+                <input type="text" class="form-control"  name="noofTables" [(ngModel)]="model.noofTables" #noofTables="ngModel" required/>
+              <div *ngIf="f.submitted && !noofTables.valid" class="help-block" style="background-color: red;color:white;width:160px;padding-left: 7px;">Table is required</div>           
+            </div>
+  
+            <!--        Submit button  -->  
+            <div class="form-group">
+               <!-- <button (click)="onMenuClick('back')" class="btn btn-primary">Back</button>  -->
+                <button class="btn btn-primary">Book</button>
+                <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Hotels & Restaurants div closed --> 
+
+  <!-- Ticketing div start --> 
+  <div class="row">
+    <div *ngIf="tickdiv" class="section" id="tutorial-django-forms-with-angularjs" style="background-image: url('/assets/images/ticketing.jpg');height: 800px;">
+      <div class="col-sm-12 col-lg-8">
+        <br/>
+        <alert></alert>
+        <div class="col-sm-12 col-lg-8">
+          <h4>Ticketing Reservation Form</h4>
+          <br/><br/>
+          <form name="ticketform" (ngSubmit)="f.form.valid && saveticketReservation()" #f="ngForm" novalidate>
+            <!-- Malindo Air Group -->
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !airname.valid }">       
+              <select class="form-control" name ="airname"  [(ngModel)]="model.airname" #airname="ngModel" required>
+                <option *ngFor="let airName of airlist" value="{{ airName }}"> {{ airName }} </option> 
+              </select>
+              <div *ngIf="f.submitted && !airname.valid" class="help-block" style="background-color: red;color:white;width:160px;padding-left: 7px;">Air Name is required</div>
+            </div>
+            
+            <!-- Departure -->
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !departure.valid }">
+              <label for="Date">Departure*</label>            
+              <input type="date" class="form-control"  name="departure" [(ngModel)]="model.departure" #departure="ngModel" required />
+              <div *ngIf="f.submitted && !departure.valid" class="help-block" style="background-color: red;color:white;width:160px;padding-left: 7px;">Departure is required</div>	
+            </div>
+        
+            <!-- Return -->
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !returndate.valid }">
+              <label for="Date">Return*</label>            
+              <input type="date" class="form-control"  name="returndate" [(ngModel)]="model.returndate" #returndate="ngModel" required />	
+              <div *ngIf="f.submitted && !returndate.valid" class="help-block" style="background-color: red;color:white;width:160px;padding-left: 7px;">Return is required</div>
+            </div>
+
+            <!-- From -->			 
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !fromplace.valid }">
+              <label for="fromplace">From</label>            
+              <select class="form-control" name="fromplace" [(ngModel)]="model.fromplace" #fromplace="ngModel" required>
+                  <option value="fromplace1">From Place 1</option>
+                  <option value="fromplace2">From Place 2</option>
+                  <option value="fromplace3">From Place 3</option>
+                  <option value="fromplace4">From Place 4</option>
+                  <option value="fromplace5">From Place 5</option>
+              </select> 
+              <div *ngIf="f.submitted && !fromplace.valid" class="help-block" style="background-color: red;color:white;width:160px;padding-left: 7px;">From Place is required</div>
+            </div>
+        
+            <!-- To-->
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !toplace.valid }">
+              <label for="toplace">To</label>            
+              <select class="form-control" name="toplace" [(ngModel)]="model.toplace" #toplace="ngModel" required>
+                <option value="toplace1">To Place 1</option>
+                <option value="toplace2">To Place 2</option>
+                <option value="toplace3">To Place 3</option>
+                <option value="toplace4">To Place 4</option>
+                <option value="toplace5">To Place 5</option>
+                </select> 
+                <div *ngIf="f.submitted && !toplace.valid" class="help-block" style="background-color: red;color:white;width:160px;padding-left: 7px;">To Place is required</div>
+            </div>
+      
+            <!-- No.of Pax -->
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !noofpax.valid }">
+              <label for="pax">Pax</label>            
+              <select class="form-control" name="noofpax" [(ngModel)]="model.noofpax" #noofpax="ngModel" required>
+                <option value="pax1">Pax 1</option>
+                <option value="pax2">Pax 2</option>
+                <option value="pax3">Pax 3</option>
+                <option value="pax4">Pax 4</option>
+                <option value="pax5">Pax 5</option>
+              </select> 
+              <div *ngIf="f.submitted && !noofpax.valid" class="help-block" style="background-color: red;color:white;width:160px;padding-left: 7px;">No.of Pax is required</div>
+            </div>
+
+            <!-- Round Trip -->
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !triptype.valid }">           
+              <input type="radio" name="triptype" value="roundtrip" [(ngModel)]="model.triptype" #triptype="ngModel" required />
+              <label for="roundtrip">Round trip</label> 
+              <!-- One Way -->           
+              <input type="radio" name="triptype" value="oneway" [(ngModel)]="model.triptype" #triptype="ngModel" required />
+              <label for="oneway">One Way</label> 
+              <div *ngIf="f.submitted && !triptype.valid" class="help-block" style="background-color: red;color:white;width:160px;padding-left: 7px;">Trip Type is required</div>
+            </div>
+
+            <!--   Submit button  -->  
+            <div class="form-group">
+              <button  (click)="onMenuClick('back')" class="btn btn-primary">Back</button>
+              <button   class="btn btn-primary">Book</button>
+              <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+              <!--  <a [routerLink]="['/login']" class="btn btn-link">Cancel</a> -->
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Ticketing div closed --> 
+  
+  <!-- Tour & Travel div start --> 
+  <div class="row">
+    <div *ngIf="turtradiv" class="section" id="tutorial-django-forms-with-angularjs" style="background-image: url('/assets/images/tour.jpg');height: 800px;">
+      <div class="col-sm-12 col-lg-8">
+        <br/>
+        <alert></alert>
+        <div class="col-sm-12 col-lg-8">
+          <h4>Tour & Travel Reservation Form</h4>
+          <br/>
+          <form name="travelform" (ngSubmit)="f.form.valid && savetravelReservation()" #f="ngForm" novalidate>
+      
+            <!-- Departure -->
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !departurename.valid }">
+              <label for="departurename">Departure</label>            
+              <input type="text" class="form-control"  name="departurename" [(ngModel)]="model.departurename" #departurename="ngModel" required />
+              <div *ngIf="f.submitted && !departurename.valid" class="help-block" style="background-color: red;color:white;width:160px;padding-left: 7px;">Departure is required</div>
+            </div>
+
+            <!-- arrival Date -->
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !arrivaldate.valid }">
+              <label for="arrivaldate">Arrival Date</label>            
+              <input type="date" class="form-control"  name="arrivaldate" [(ngModel)]="model.arrivaldate" #arrivaldate="ngModel" required />
+              <div *ngIf="f.submitted && !arrivaldate.valid" class="help-block" style="background-color: red;color:white;width:160px;padding-left: 7px;">Hotel Name is required</div>
+            </div>
+
+            <!-- Visiting Country -->
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !visitcountry.valid }">
+              <label for="visitcountry">Visiting Country</label>
+              <select class="form-control" name="visitcountry" [(ngModel)]="model.visitcountry" #visitcountry="ngModel" required>
+                <option value="Malaysia">Malaysia</option>
+                <option value="Singapore">Singapore</option>
+                <option value="Thailand">Thailand</option>
+                <option value="India">India</option>
+                <option value="China">China</option>
+                <option value="Indonesia">Indonesia</option>
+                <option value="Philippines">philippines</option>
+              </select>
+              <div *ngIf="f.submitted && !visitcountry.valid" class="help-block" style="background-color: red;color:white;width:160px;padding-left: 7px;">Country is required</div>             
+            </div>
+        
+            <!-- Category -->
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !category.valid }">
+                <label for="category">Category Name*</label>            
+                <select class="form-control" name ="category"  [(ngModel)]="model.category" #category="ngModel" required>
+                  <option value="Hotel">Hotel/Restaurant</option>
+                  <option value="Transport">Transportion</option>
+                  <option value="Tour">Tour</option>
+                  <option value="Entertainment">Entertainment Ticket</option>
+                </select>
+                <div *ngIf="f.submitted && !category.valid" class="help-block" style="background-color: red;color:white;width:160px;padding-left: 7px;">Category is required</div>
+            </div>
+          
+            <!-- No.of Adult-->
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !noofadult.valid }">
+                <label for="noofadult">No.of Adult*</label>            
+                <select class="form-control" name="noofadult" [(ngModel)]="model.noofadult" #noofadult="ngModel" required>
+                  <option value="adult1">1 Adult</option>
+                  <option value="adult2">2 Adult</option>
+                  <option value="adult3">3 Adult</option>
+                  <option value="adult4">4 Adult</option>
+                  <option value="adult5">5 Adult</option>
+                </select> 
+                <div *ngIf="f.submitted && !noofadult.valid" class="help-block" style="background-color: red;color:white;width:160px;padding-left: 7px;">No.of Adult is required</div>           
+            </div>
+            
+            <!-- No.of Children -->
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !noofchild.valid }">
+                <label for="noofchild">No.of Children*</label>            
+                <select class="form-control" name="noofchild" [(ngModel)]="model.noofchild" #noofchild="ngModel" required>
+                  <option value="child1">1 Child</option>
+                  <option value="child2">2 Child</option>
+                  <option value="child3">3 Child</option>
+                  <option value="child4">4 Child</option>
+                  <option value="child5">5 Child</option>
+                </select> 
+                <div *ngIf="f.submitted && !noofchild.valid" class="help-block" style="background-color: red;color:white;width:160px;padding-left: 7px;">No.of Child is required</div>           
+            </div>
+      
+            <!--      Submit button  -->      
+            <div class="form-group">
+                <button  (click)="onMenuClick('back')" class="btn btn-primary">Back</button>
+                <button   class="btn btn-primary">Book</button>
+                <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Tour & Travel div closed --> 
+  
+  <!-- Financial Solution div Start --> 
+  <div class="row">
+    <div *ngIf="financialdiv" class="section" id="tutorial-django-forms-with-angularjs" style="background-image: url('/assets/images/financial.jpg');height: 700px;">
+      <div class="col-sm-12 col-lg-8">
+        <br/>
+        <alert></alert>
+        <div class="col-sm-12 col-lg-8">
+          <h4>Financial Solution Reservation Form</h4>
+          <br/><br/>
+          <form name="financialform" (ngSubmit)="f.form.valid && savefinanancialReservation()" #f="ngForm" novalidate>
+            <!-- BPNI -->
+            <div class="form-group">
+              <button style="width:100%">BPNI</button>
+            </div><br/> 
+
+            <!-- Appointment Date -->
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !appointmentdate.valid }">
+              <label for="appointmentdate">Appointment Date</label>            
+              <input type="date" class="form-control"  name="appointmentdate" [(ngModel)]="model.appointmentdate" #appointmentdate="ngModel" required/>
+              <div *ngIf="f.submitted && !appointmentdate.valid" class="help-block" style="background-color: red;color:white;width:160px;padding-left: 7px;">Date is required</div>
+            </div>
+
+            <!-- Financial Time -->
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !medicaltime.valid }">
+              <label for="Time">Time*</label>            
+                <input type="time" class="form-control"  name="medicaltime" [(ngModel)]="model.medicaltime" #medicaltime="ngModel" required/>
+              <div *ngIf="f.submitted && !medicaltime.valid" class="help-block" style="background-color: red;color:white;width:160px;padding-left: 7px;">Time is required</div>
+            </div>
+            
+            <!-- No.of Pax -->
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !noofpax.valid }">
+              <label for="noofpax">Number of Pax</label>            
+              <select class="form-control" name="noofpax" [(ngModel)]="model.noofpax" #noofpax="ngModel" required>
+                <option value="pax1">Pax 1</option>
+                <option value="pax2">Pax 2</option>
+                <option value="pax3">Pax 3</option>
+                <option value="pax4">Pax 4</option>
+                <option value="pax5">Pax 5</option>
+              </select> 
+              <div *ngIf="f.submitted && !noofpax.valid" class="help-block" style="background-color: red;color:white;width:160px;padding-left: 7px;">Pax is required</div>
+            </div>
+    
+            <!--    Submit button  -->  
+            <div class="form-group">
+              <button  (click)="onMenuClick('back')" class="btn btn-primary">Back</button>
+              <button   class="btn btn-primary">Book</button>
+              <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Financial Solution div closed --> 
+  
+  <!-- Education Reservation div Start --> 
+  <div class="row">
+    <div *ngIf="educationdiv" class="section" id="tutorial-django-forms-with-angularjs" style="background-image: url('/assets/images/education.jpg');height: 700px;">
+      <div class="col-sm-12 col-lg-8">
+        <br/>
+        <alert></alert>
+        <div class="col-sm-12 col-lg-8">
+          <h4>Education Reservation Reservation Form</h4>
+          <br/><br/>
+          <form name="educationform" (ngSubmit)="f.form.valid && saveeducationReservation()" #f="ngForm" novalidate>
+          
+            <!-- University -->
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !university.valid }">
+              <label for="university">University</label>  
+              <select class="form-control" name="university" [(ngModel)]="model.university" #university="ngModel" required>
+                <option value="victoriauniversity">Victoria University</option>
+                  <option value="singaporeuniversity">Singapore National University</option>
+              </select>
+              <div *ngIf="f.submitted && !university.valid" class="help-block" style="background-color: red;color:white;width:160px;padding-left: 7px;">University is required</div>	         
+            </div>
+
+            <!-- Study/Major -->
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !study.valid }">
+              <label for="study">Study</label>            
+              <input type="text" class="form-control"  name="study" [(ngModel)]="model.study" #study="ngModel" required />
+              <div *ngIf="f.submitted && !study.valid" class="help-block" style="background-color: red;color:white;width:160px;padding-left: 7px;">Study is required</div>
+            </div>    
+
+            <!-- Year of Study -->
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !yearofstudy.valid }">
+              <label for="yearofstudy">Year of Study</label>       
+              <select class="form-control" name="yearofstudy" [(ngModel)]="model.yearofstudy" #yearofstudy="ngModel" required>
+                <option value="first">First Year</option>
+                <option value="second">Second Year</option>
+                <option value="third">Third Year</option>
+                <option value="fourth">Fourth Year</option>
+                <option value="fifth">Fifth Year</option>
+              </select>     
+              <div *ngIf="f.submitted && !yearofstudy.valid" class="help-block" style="background-color: red;color:white;width:160px;padding-left: 7px;">Year is required</div>
+            </div>
+            
+            <!--        Submit button  -->  
+            <div class="form-group">
+              <button  (click)="onMenuClick('back')" class="btn btn-primary">Back</button>         
+              <button   class="btn btn-primary">Book</button>
+              <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Education Reservation div closed --> 
+  
+  <!-- Insurance Reservation div start --> 
+  <div class="row">
+    <div *ngIf="insurancediv" class="section" id="tutorial-django-forms-with-angularjs" style="background-image: url('/assets/images/insurance.jpg');height: 700px;">
+        <div class="col-sm-12 col-lg-8"> 
+        <br/>
+        <alert></alert>
+        <div class="col-sm-12 col-lg-8">
+          <h4>Insurance Reservation Form</h4>
+          <form name="insuranceform" (ngSubmit)="f.form.valid && saveinsuranceReservation()" #f="ngForm" novalidate style="height:100%;">
+      
+            <!-- Category Insurance --> 
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !categoryinsurance.valid }">
+              <label for="categoryinsurance">Category Insurance</label>            
+                <select class="form-control" name="categoryinsurance" [(ngModel)]="model.categoryinsurance" #categoryinsurance="ngModel" required>
+                  <option value="carinsuance">Car Insurance</option>
+                  <option value="motorinsurance">Motor Insurance</option>
+                  <option value="travelinsurance">Travel Insurance</option>
+                  <option value="buildinginsurance">Building Insurance</option>
+                  <option value="personalinsurance">Personal/group</option>
+                  <option value="healthinsurance">Health,Life</option>
+                  <option value="inverstment">Investment Plan</option>
+                  <option value="retireplan">Retire Plan</option>
+                  <option value="endomentplan">Endoment Plan</option>
+                  <option value="educationplan">Education Plan</option>
+                </select> 
+                <div *ngIf="f.submitted && !categoryinsurance.valid" class="help-block" style="background-color: red;color:white;width:160px;padding-left: 7px;">Category is required</div>           
+            </div>
+              
+            <!-- Company Insurance -->
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !companyinsurance.valid }">
+              <label for="companyinsurance">Company Insurance</label>            
+                <select class="form-control" name="companyinsurance" [(ngModel)]="model.companyinsurance" #companyinsurance="ngModel" required>
+                  <option value="companyinsurance1">Company Insurance 1</option>
+                  <option value="companyinsurance2">Company Insurance 2</option>
+                  <option value="companyinsurance3">Company Insurance 3</option>
+                  <option value="companyinsurance4">Company Insurance 4</option>
+                  <option value="companyinsurance5">Company Insurance 5</option>
+                </select> 
+                <div *ngIf="f.submitted && !companyinsurance.valid" class="help-block" style="background-color: red;color:white;width:160px;padding-left: 7px;">Company is required</div>           
+            </div>
+            
+            <!-- Appointment Date -->
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !appointmentdate.valid }">
+              <label for="appointmentdate">Appointment Date</label>            
+              <input type="date" class="form-control"  name="appointmentdate" [(ngModel)]="model.appointmentdate" #appointmentdate="ngModel" required/>
+              <div *ngIf="f.submitted && !appointmentdate.valid" class="help-block" style="background-color: red;color:white;width:160px;padding-left: 7px;">Date is required</div>
+            </div>
+
+            <!-- Financial Time -->
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !medicaltime.valid }">
+              <label for="Time">Time*</label>            
+                <input type="time" class="form-control"  name="medicaltime" [(ngModel)]="model.medicaltime" #medicaltime="ngModel" required/>
+                <div *ngIf="f.submitted && !medicaltime.valid" class="help-block" style="background-color: red;color:white;width:160px;padding-left: 7px;">Time is required</div>	
+            </div>  
+              
+            <!-- Number of Pax -->
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !noofpax.valid }">
+              <label for="pax">Pax</label>            
+              <select class="form-control" name="noofpax" [(ngModel)]="model.noofpax" #noofpax="ngModel" required>
+                <option value="pax1">Pax 1</option>
+                <option value="pax2">Pax 2</option>
+                <option value="pax3">Pax 3</option>
+                <option value="pax4">Pax 4</option>
+                <option value="pax5">Pax 5</option>
+              </select> 
+              <div *ngIf="f.submitted && !noofpax.valid" class="help-block" style="background-color: red;color:white;width:160px;padding-left: 7px;">No.of Pax is required</div>
+            </div>
+        
+            <!--  Submit button Start -->  
+            <div class="form-group">
+              <button  (click)="onMenuClick('back')" class="btn btn-primary">Back</button>
+              <button   class="btn btn-primary">Book</button>
+              <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+            </div>
+          </form>
+        </div>
+      </div> 
+    </div>
+  </div>
+  <!-- Insurance Reservation div closed -->
+  
+  <!-- Mediacal Treatment Reservation div start --> 
+  <div class="row">
+    <div *ngIf="medicaldiv" class="section" id="tutorial-django-forms-with-angularjs" style="background-image: url('/assets/images/medical.jpg');height: 700px;">
+      <div class="col-sm-12 col-lg-8">
+      <br/>
+      <alert></alert>
+        <div class="col-sm-12 col-lg-8">
+          <h4>Medical Treatment Reservation Form</h4>
+          <form name="medicalform" (ngSubmit)="f.form.valid && savemedicalReservation()" #f="ngForm" novalidate>
+      
+            <!-- Hospital Name --> 
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !hospitalname.valid }">
+              <label for="hospitalname">Hospital Name</label>            
+              <input type="text" class="form-control"  name="hospitalname" [(ngModel)]="model.hospitalname" #hospitalname="ngModel" required/> 
+              <div *ngIf="f.submitted && !hospitalname.valid" class="help-block" style="background-color: red;color:white;width:160px;padding-left: 7px;">Name is required</div>          
+            </div>
+            
+            <!-- Appointment Date -->
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !appointmentdate.valid }">
+              <label for="appointmentdate">Appointment Date</label>            
+              <input type="date" class="form-control"  name="appointmentdate" [(ngModel)]="model.appointmentdate" #appointmentdate="ngModel" required/>
+              <div *ngIf="f.submitted && !appointmentdate.valid" class="help-block" style="background-color: red;color:white;width:160px;padding-left: 7px;">Date is required</div>
+            </div>
+            <!-- Medical Time -->
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !medicaltime.valid }">
+              <label for="Time">Time*</label>            
+                <input type="time" class="form-control"  name="medicaltime" [(ngModel)]="model.medicaltime" #medicaltime="ngModel" required/>
+                <div *ngIf="f.submitted && !medicaltime.valid" class="help-block" style="background-color: red;color:white;width:160px;padding-left: 7px;">Time is required</div>			
+            </div>
+            
+            <!-- Number of Pax -->
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !noofpax.valid }">
+              <label for="pax">Pax</label>            
+              <select class="form-control" name="noofpax" [(ngModel)]="model.noofpax" #noofpax="ngModel" required>
+                <option value="pax1">Pax 1</option>
+                <option value="pax2">Pax 2</option>
+                <option value="pax3">Pax 3</option>
+                <option value="pax4">Pax 4</option>
+                <option value="pax5">Pax 5</option>
+                </select> 
+                <div *ngIf="f.submitted && !noofpax.valid" class="help-block" style="background-color: red;color:white;width:160px;padding-left: 7px;">No.of Pax is required</div>
+            </div>
+    
+            <!-- Kind of Treatment -->
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !treatment.valid }">
+              <label for="treatment">Kind of Treatment</label>            
+              <input type="text" class="form-control"  name="treatment" [(ngModel)]="model.treatment" #treatment="ngModel" required/>
+              <div *ngIf="f.submitted && !treatment.valid" class="help-block" style="background-color: red;color:white;width:160px;padding-left: 7px;">Treatment is required</div>
+            </div>
+      
+            <!--    Submit button  -->  
+            <div class="form-group">
+              <button  (click)="onMenuClick('back')" class="btn btn-primary">Back</button>       
+              <button   class="btn btn-primary">Book</button>
+              <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Mediacal Treatment Reservation div closed -->
+  
+  <!-- Health Accesories Purchasing div start --> 
+  <div class="row">
+    <div *ngIf="healthaccessorydiv" class="section" id="tutorial-django-forms-with-angularjs" style="background-image: url('/assets/images/healthaccessory.jpg');height: 700px;">
+      <div class="col-sm-12 col-lg-8">
+        <br/>
+        <alert></alert>
+        <div class="col-sm-12 col-lg-8">
+          <h4>Health Accesories Purchasing Form</h4>
+          <form name="healthaccesform" (ngSubmit)="f.form.valid && savehealthReservation()" #f="ngForm" novalidate>
+            <br/>
+            <!-- IRSI -->
+            <div class="form-group">
+                <button style="width:100%">IRSI PRO</button>
+            </div><br/>
+      
+            <!-- Category Product -->
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !categoryproduct.valid }">
+              <label for="categoryproduct">Category Product</label>            
+              <input type="text" class="form-control"  name="categoryproduct" [(ngModel)]="model.categoryproduct" #categoryproduct="ngModel" required/> 
+              <div *ngIf="f.submitted && !categoryproduct.valid" class="help-block" style="background-color: red;color:white;width:160px;padding-left: 7px;">Category is required</div>          
+            </div>
+      
+            <!-- List Product -->
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !listproduct.valid }">
+              <label for="listproduct">List Product</label>            
+              <input type="text" class="form-control"  name="listproduct" [(ngModel)]="model.listproduct" #listproduct="ngModel" required/>
+              <div *ngIf="f.submitted && !listproduct.valid" class="help-block" style="background-color: red;color:white;width:160px;padding-left: 7px;">List is required</div>           
+            </div>
+              
+            <!-- Quantity -->
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !quantity.valid }">
+              <label for="quantity">Quantity</label>            
+              <input type="text" class="form-control"  name="quantity" [(ngModel)]="model.quantity" #quantity="ngModel" required/>
+              <div *ngIf="f.submitted && !quantity.valid" class="help-block" style="background-color: red;color:white;width:160px;padding-left: 7px;">Quantity is required</div>
+            </div><br/>
+
+            <!-- Price -->
+            <div class="form-group">         
+              <button style="width:100%;">Price Automaticly</button>
+            </div><br/>
+            
+            <!--  Submit button  -->  
+            <div class="form-group">
+              <button  (click)="onMenuClick('back')" class="btn btn-primary">Back</button>
+              <button   class="btn btn-primary">Book</button>
+              <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Health Accesories Purchasing div closed -->
+  
+  <!-- Herbal Product Purchasing div start --> 
+  <div class="row">
+    <div *ngIf="healthdiv" class="section" id="tutorial-django-forms-with-angularjs" style="background-image: url('/assets/images/herbal.jpg');height: 700px;">
+      <div class="col-sm-12 col-lg-8">
+        <br/>
+        <alert></alert>
+        <div class="col-sm-12 col-lg-8"> 
+          <h4>Herbal Product Purchasing Form</h4>
+          <form name="healthproductform" (ngSubmit)="f.form.valid && saveherbalReservation()" #f="ngForm" novalidate>
+      
+            <!-- Product Name --> 
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !categoryproduct.valid }">
+              <label for="categoryproduct">Product Name</label>            
+              <input type="text" class="form-control"  name="categoryproduct" [(ngModel)]="model.categoryproduct" #categoryproduct="ngModel" required/> 
+              <div *ngIf="f.submitted && !categoryproduct.valid" class="help-block" style="background-color: red;color:white;width:160px;padding-left: 7px;">Category is required</div>          
+            </div>
+              
+            <!-- Quantity -->
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !quantity.valid }">
+              <label for="quantity">Quantity</label>            
+              <input type="text" class="form-control"  name="quantity" [(ngModel)]="model.quantity" #quantity="ngModel" required/>
+              <div *ngIf="f.submitted && !quantity.valid" class="help-block" style="background-color: red;color:white;width:160px;padding-left: 7px;">Quantity is required</div>
+            </div><br/>
+
+            <!-- Price -->
+            <div class="form-group">         
+              <button  style="width:100%;">Price Automaticly</button>
+            </div><br/>
+            
+            <!--  Submit button  -->  
+            <div class="form-group">
+              <button  (click)="onMenuClick('back')" class="btn btn-primary">Back</button>
+              <button   class="btn btn-primary">Book</button>
+              <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Health Product Purchasing div closed -->
+  
+  <!-- Umrah div start --> 
+  <div class="row">
+    <div *ngIf="umrahdiv" class="section" id="tutorial-django-forms-with-angularjs" style="background-image: url('/assets/images/umrah.jpg');height:700px;">
+      <div class="col-sm-12 col-lg-8">
+        <br/>
+        <alert></alert>
+        <div class="col-sm-12 col-lg-8">
+          <h4>Umrah Reservation Form</h4>  
+          <form name="umrahform" (ngSubmit)="f.form.valid && saveumrahReservation()" #f="ngForm" novalidate>
+      
+            <!-- departure Date -->
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !appointmentdate.valid }">
+              <label for="appointmentdate">Appointment Date</label>            
+              <input type="date" class="form-control"  name="appointmentdate" [(ngModel)]="model.appointmentdate" #appointmentdate="ngModel" required/>
+              <div *ngIf="f.submitted && !appointmentdate.valid" class="help-block" style="background-color: red;color:white;width:200px;padding-left: 7px;">Appoinment Date is required</div>
+            </div>
+              
+            <!-- Arrival Date -->
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !arrivaldate.valid }">
+              <label for="arrivaldate">Arrival Date</label>            
+              <input type="date" class="form-control"  name="arrivaldate" [(ngModel)]="model.arrivaldate" #arrivaldate="ngModel" required/>
+              <div *ngIf="f.submitted && !arrivaldate.valid" class="help-block" style="background-color: red;color:white;width:200px;padding-left: 7px;">Arrival Date is required</div>
+            </div>
+
+            <!-- No.of Pax -->     
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !noofpax.valid }">
+              <label for="pax">Pax</label>            
+              <select class="form-control" name="noofpax" [(ngModel)]="model.noofpax" #noofpax="ngModel" required>
+                <option value="pax1">Pax 1</option>
+                <option value="pax2">Pax 2</option>
+                <option value="pax3">Pax 3</option>
+                <option value="pax4">Pax 4</option>
+                <option value="pax5">Pax 5</option>
+              </select> 
+              <div *ngIf="f.submitted && !noofpax.valid" class="help-block" style="background-color: red;color:white;width:160px;padding-left: 7px;">Pax is required</div>
+            </div>
+
+            <!-- category -->    
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !category.valid }">
+                <label for="category">Category</label>            
+                <select class="form-control" name="category" [(ngModel)]="model.category" #category="ngModel" required>
+                  <option value="threestar">3 Star Category</option>
+                  <option value="fivestar">5 Star Category</option>
+                  <option value="sevenstar">7 Star Category</option>
+                  <option value="vipstar">VIP Category</option>
+                </select>
+                <div *ngIf="f.submitted && !category.valid" class="help-block" style="background-color: red;color:white;width:160px;padding-left: 7px;">Category is required</div> 
+            </div>
+
+            <!--  Submit button  -->       
+            <div class="form-group">
+                <button  (click)="onMenuClick('back')" class="btn btn-primary">Back</button>
+                <button   class="btn btn-primary">Book</button>
+                <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div> 
+  </div>
+  <!-- Umrah div closed -->
+  
+  <!-- Software & Hardware div start --> 
+  <div class="row">
+    <div *ngIf="softwarediv" class="section" id="tutorial-django-forms-with-angularjs" style="background-image: url('/assets/images/software.jpg');height:700px;">
+      <div class="col-sm-12 col-lg-8">
+      <br/>
+      <alert></alert>
+        <div class="col-sm-12 col-lg-8">
+          <h4>Software & Hardware Reservation Form</h4>
+          <form name="softwareform" (ngSubmit)="f.form.valid && savesoftwareReservation()" #f="ngForm" novalidate>
+    
+            <!-- Company Name-->
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !companyname.valid }">
+              <select class="form-control" name="companyname" [(ngModel)]="model.companyname" #companyname="ngModel" required>
+                <option value="Nrg" selected="selected">NRG</option>
+                <option value="company1">company 1 </option>
+                <option value="company2">company 2</option>
+                <option value="company3">company 3</option>
+              </select> 
+              <div *ngIf="f.submitted && !companyname.valid" class="help-block" style="background-color: red;color:white;width:160px;padding-left: 7px;">Company is required</div>
+            </div>
+              
+            <!-- Product -->
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !listproduct.valid }">
+              <select class="form-control" name="listproduct" [(ngModel)]="model.listproduct" #listproduct="ngModel" required>
+                <option value="Inacsys" selected="selected">Inacsys</option>
+                <option value="product1">Product 1</option>
+                <option value="product2">Product 2</option>
+                <option value="product3">Product 3</option>
+              </select>
+              <div *ngIf="f.submitted && !listproduct.valid" class="help-block" style="background-color: red;color:white;width:160px;padding-left: 7px;">Product is required</div> 
+            </div>
+      
+            <!-- Appointment Date -->
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !appointmentdate.valid }">
+              <label for="appointmentdate">Appointment Date</label>            
+              <input type="date" class="form-control"  name="appointmentdate" [(ngModel)]="model.appointmentdate" #appointmentdate="ngModel" required />
+              <div *ngIf="f.submitted && !appointmentdate.valid" class="help-block" style="background-color: red;color:white;width:160px;padding-left: 7px;">Date is required</div>  
+            </div>
+              
+            <!--  Time -->
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !medicaltime.valid }">
+              <label for="Time">Time*</label>            
+              <input type="time" class="form-control"  name="medicaltime" [(ngModel)]="model.medicaltime" #medicaltime="ngModel" required />
+              <div *ngIf="f.submitted && !medicaltime.valid" class="help-block" style="background-color: red;color:white;width:160px;padding-left: 7px;">Time is required</div>
+          
+            </div>
+
+            <!--  Submit button  -->    
+            <div class="form-group">
+              <button  (click)="onMenuClick('back')" class="btn btn-primary">Back</button>
+              <button   class="btn btn-primary">Book</button>
+              <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Software & Hardware div closed -->
+  
+  <!-- Energy Saving  Purchasing div start --> 
+  <div class="row">
+    <div *ngIf="energysavediv" class="section" id="tutorial-django-forms-with-angularjs" style="background-image: url('/assets/images/energysave.jpg');height: 700px;">
+      <div class="col-sm-12 col-lg-8">
+        <br/>
+        <alert></alert>
+        <div class="col-sm-12 col-lg-8"> 
+          <h4>Energy Saving  Purchasing Form</h4>
+          <form name="energysavingform" (ngSubmit)="f.form.valid && saveenergyReservation()" #f="ngForm" novalidate>
+              
+            <!-- List Product -->
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !listproduct.valid }">
+              <select class="form-control" name="listproduct" [(ngModel)]="model.listproduct" #listproduct="ngModel" required>
+                <option value="enerysaving">Energy Saving Up to 25% price 100 USD</option>
+                <option value="fisiompower">FisiomPower Price200 USD</option>
+              </select> 
+              <div *ngIf="f.submitted && !listproduct.valid" class="help-block" style="background-color: red;color:white;width:160px;padding-left: 7px;">Product is required</div>
+            </div>
+    
+            <!-- Quantity -->
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !quantity.valid }">
+                <label for="quantity">Quantity</label>            
+                <input type="text" class="form-control"  name="quantity" [(ngModel)]="model.quantity" #quantity="ngModel" required/>
+                <div *ngIf="f.submitted && !quantity.valid" class="help-block" style="background-color: red;color:white;width:160px;padding-left: 7px;">Quantity is required</div>
+            </div><br/>
+
+            <!-- Price -->
+            <div class="form-group">         
+              <button style="width:100%;">Automaticly Price Product Show </button>
+            </div><br/>
+              
+            <!--  Submit button  -->          
+            <div class="form-group">
+              <button  (click)="onMenuClick('back')" class="btn btn-primary">Back</button>
+              <button   class="btn btn-primary">Book</button>
+              <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Energy Saving  Purchasing div closed -->
+
+  <!-- Loading Image Start -->
+	<div class="row">
+      <div class="col-md-5 col-xs-5 col-lg-5">			
+        <img *ngIf="loadinggif" class="loadingimage" src="/assets/images/loadingimage.gif"/> 
+      </div>
+      <div class="col-md-7 col-xs-7 col-lg-7">
+      </div>
+    </div>
+    <!-- Loading Image End -->
+
+  <div class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':successdialog}">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Confirmation</h4>
+        </div>
+        <div class="modal-body">
+          <p>Successfully Saved Data.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="success" (click)="onCloseHandled()" >Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':failuredialog}">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Confirmation</h4>
+        </div>
+        <div class="modal-body">
+          <p>Successfully not saved data.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="success" (click)="onCloseHandled()" >Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':networkissuedialog}">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Confirmation</h4>
+        </div>
+        <div class="modal-body">
+          <p>Due to some Technical issue. Please try later.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="success" (click)="onCloseHandled()" >Close</button>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,137 @@
+<app-memberheader></app-memberheader>
+
+<div *ngIf="div1">
+    <div class="col-md-6 col-md-offset-3">
+
+    <form name="form" (ngSubmit)="f.form.valid && statusOfPrivateTree()" #f="ngForm" novalidate>   
+  
+        <br/>
+ 
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !treeName.valid }">
+            <label for="state">Tree Name *</label>            
+    <!--     <select class="form-control" name ="treeName"  [(ngModel)]="model.treeName" #treeName="ngModel" required>
+         <option *ngFor="let itemTreeName of treeList" value="{{ itemTreeName }}"> {{ itemTreeName }} 
+         </option> 
+         </select> -->
+
+  <select class="form-control"  name ="treeName" [(ngModel)]="model.treeName" #treeName="ngModel" required>
+    <option *ngFor="let treename of treeList" value="{{ treename }}"> {{ treename }} 
+    </option> 
+  </select>
+
+
+                 <!--    <div *ngIf="f.submitted && !treeName.valid" class="help-block">Tree Name is required</div>
+                 --> 
+        </div>
+  
+  
+        <div class="form-group">
+            <button [disabled]="loading" class="btn btn-primary">Search</button>
+  
+  
+  
+        </div>
+  
+    
+      </form>
+      </div>
+</div>
+
+<div *ngIf="memberHOmeDive">
+
+<div class="text-center">
+        <h2>My Unit Status Info </h2>
+        <h4>Choose a type of Category to See the Status for you</h4>
+      </div>
+      
+      <div class="col-sm-4 col-xs-12">
+        <div class="panel panel-default text-center">
+          <div class="panel-heading">
+            <h1>Public Tree</h1>
+          </div>
+          <div class="panel-body">
+          
+          </div>
+          <div class="panel-footer">
+            <button (click)="statusOfPublicTree()" class="btn btn-lg" id="publicStatus">Check</button>
+
+          </div>
+        </div>     
+      </div>     
+      
+      
+    
+      
+      <div class="col-sm-4 col-xs-12">
+        <div class="panel panel-default text-center">
+          <div class="panel-heading">
+            <h1>Private Tree</h1>
+          </div>
+          <div class="panel-body">
+          
+          </div>
+          <div class="panel-footer">
+            <button (click)="chooseTreeName()" class="btn btn-lg" id="privateTreeStatus">Check</button>
+          </div>
+        </div>      
+      </div>  
+
+</div>
+
+<div *ngIf="div2">
+
+    <a (click)="backToMyStatus()" class="previous">&laquo; Previous</a>
+<br/> <br/>
+    <div *ngFor="let memberUnit of memberUnitList">
+        <div class="col-sm-4 col-xs-12">
+          <div class="panel panel-default text-center">
+            <div class="panel-heading">
+              <h1>Queue No : {{ memberUnit.queueNumber }}</h1>
+              
+            </div>
+        
+            <div class="panel-footer">
+              
+                Unit Status:   <label style="font-size: 16px;" >  {{ memberUnit.userstatus }} </label> <br/>
+                Payment Status:    <label style="font-size: 16px;"> {{ memberUnit.paymentStatus }} </label> <br/>
+                Unit ID:   <label style="font-size: 16px;"> {{ memberUnit.invoiceNumber }} </label>
+        
+              </div>
+          </div>      
+        </div>  
+        </div>
+        
+  
+</div>
+
+
+<div class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':nodataFound}">
+
+    <div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" aria-label="Close" (click)="backToMyStatus()"></button>
+				<h4 class="modal-title">Alert</h4>
+			</div>
+			<div class="modal-body">  
+				<p>No units Found</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" class="success" (click)="backToMyStatus()" >Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+ 
+
+
+
+
+  
+        
+

@@ -1,0 +1,183 @@
+
+<app-memberheader></app-memberheader>
+
+<br/><br/>
+
+<!-- dashboard div start -->
+<div class="row" style="margin:0 auto;">
+	<div *ngIf="dashboarddiv" style="-webkit-overflow-scrolling: touch;">
+		<div id="breadcrumb">
+			<div class="container">
+				<ul class="breadcrumb">
+					<li><a [routerLink]="['/home']">Home</a></li>
+					<li class="active">Hotel Name Goes Here</li>		
+				</ul>
+			</div>
+		</div>
+
+		<br/>
+		<div style="margin-left: -15px;">  
+			<form name="partnerfilterForm" (ngSubmit)="searchhotel.form.valid && searchHotel()" #searchhotel="ngForm" novalidate> 
+				<table cellspacing="0" cellpadding="0" id="box-table-a">
+					<thead>
+						<th id="header">Search Criteria</th>
+					</thead>
+					<tbody>
+						<tr> <br/> </tr>
+						<tr>
+							<div class="col-sm-2">
+								<div class="form-group" [ngClass]="{ 'has-error': searchhotel.submitted && !selectedCountry.valid }">
+										<label value="selectedCountry" style="margin-left: 0px;">Country</label>
+										<select class="form-control" name ="selectedCountry"  [(ngModel)]="model.selectedCountry" #selectedCountry="ngModel" (change)="onCountryChoose()" style="height:35px;" required>
+											<option value="All">All</option>
+											<option *ngFor="let itemCountry of countryList" value="{{ itemCountry }}"> {{ itemCountry }} </option> 
+										</select>
+										<div *ngIf="searchhotel.submitted && !selectedCountry.valid" class="help-block" style="margin-left:0px;">Country is required</div>
+									</div>	
+								</div>
+								<div class="col-sm-2">
+									<div class="form-group" [ngClass]="{ 'has-error': searchhotel.submitted && !selectedState.valid }">
+										<label value="selectedState" style="margin-left: 0px;">State Name</label>
+										<select class="form-control" name ="selectedState"  [(ngModel)]="model.selectedState" #selectedState="ngModel" style="height:35px;" required>
+											<option value="All">All</option>
+											<option *ngFor="let itemState of stateList" value="{{ itemState }}"> {{ itemState }} </option> 
+										</select>
+										<div *ngIf="searchhotel.submitted && !selectedState.valid" class="help-block" style="margin-left:0px;">State is required</div>
+									</div>
+								</div>   
+								<div class="col-sm-3">
+									<div class="form-group" [ngClass]="{ 'has-error': searchhotel.submitted && !categoryname.valid }">
+										<label value="categoryname" style="padding-left:3px;">Category Name</label>
+										<select class="form-control" name ="categoryname" [(ngModel)]="model.categoryname" #categoryname="ngModel" style="height:35px;margin-left:-5px;" required>
+												<option value="Food and hotels">Food and hotels</option>   
+											</select>
+											<!-- <select class="form-control" name ="categoryname" [(ngModel)]="model.categoryname" #categoryname="ngModel" style="height:35px;margin-left:-5px;" required>
+												<option value="All">All</option>   
+												<option *ngFor="let itemCategory of loadcategorylist" value="{{ itemCategory }}"> {{ itemCategory }} </option> 
+											</select> -->
+										<div *ngIf="searchhotel.submitted && !categoryname.valid" class="help-block">Categoty Name is required</div>
+									</div>
+								</div>
+								<div class="col-sm-3">
+								
+									<div class="form-group" [ngClass]="{ 'has-error': searchhotel.submitted && !cname.valid }">
+										<label value="cname" style="padding-left:3px;">Name</label>
+											<select class="form-control" name ="cname"  [(ngModel)]="model.cname" #cname="ngModel" style="height:35px;" required>
+												<option value="All">All</option>   
+												<option *ngFor="let itemHotel of allHotelList" value="{{ itemHotel }}"> {{ itemHotel }} </option> 
+											</select>
+										<div *ngIf="searchhotel.submitted && !cname.valid" class="help-block">Hotel Name is required</div>
+									</div>
+								</div>
+								<div class="col-sm-1">
+									<button class="btn success" type="submit" style="margin-top:23px;margin-left:25px;">Search</button> 
+								</div>
+						</tr>
+					</tbody>                   
+				</table>
+			</form>
+		</div>
+
+		<!-- <div class="row">	
+			<form name="dashboardform" (ngSubmit)="f.form.valid && getCompanyListDashboard()" #f="ngForm" novalidate>
+				<div class="col-lg-5 col-sm-5"></div>
+				<div class="form-group" [ngClass]="{ 'has-error': f.submitted && !selectedCountry.valid }">
+					<div class="col-lg-2 col-sm-2">
+						<label for="country" style="margin-left: 85px;margin-top: 10px;">Choose Country*</label> 
+					</div>  
+					<div class="col-lg-2 col-sm-2">       
+						<select class="form-control"  name ="selectedCountry" [(ngModel)]="model.selectedCountry" #selectedCountry="ngModel" required>
+							<option *ngFor="let itemCountry of countryList" value="{{ itemCountry }}"> {{ itemCountry }} 
+							</option> 
+						</select>
+						<div *ngIf="f.submitted && !selectedCountry.valid" class="help-block">Country is required</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-sm-3">
+					<div class="form-group">
+						<button  class="btn btn-primary">Search</button>
+						<img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+					</div>
+				</div>
+			</form>
+		</div>	-->
+		<!-- section -->
+		<div class="section">
+			<div class="container">
+				<div class="row" *ngFor="let hotel of hotelList">
+					<!--  Product Details -->
+					<div class="product product-details clearfix">
+						<div class="col-md-6">
+							<div id="product-main-view">
+								<div class="product-view">
+									<img src=  "{{ hotel.hotelImagePath }}" alt="">
+								</div>
+								
+							</div> 
+						</div>
+						<div class="col-md-6">
+							<div class="product-body">
+								<p style="font-family: none;font-size: 15px;"><strong>Name &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : &nbsp;&nbsp; </strong> {{ hotel.cname }}</p>
+								<p style="font-family: none;font-size: 15px;"><strong>Category Name &nbsp; : &nbsp;&nbsp; </strong>{{ hotel.categoryname }}</p>
+								<p style="font-family: none;font-size: 15px;"><strong>Address &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : &nbsp;&nbsp; </strong> {{ hotel.selectedState }}  {{ hotel.selectedCountry }} </p>
+								<p style="font-family: none;font-size: 15px;"><strong>Description &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : &nbsp;&nbsp; </strong> {{ hotel.description }}</p>
+								<p style="font-family: none;font-size: 15px;"><strong>Phone Number &nbsp;&nbsp; : &nbsp;&nbsp; </strong> {{ hotel.phoneNumber }} </p>
+								<p style="font-family: none;font-size: 15px;"><strong>EmailID &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : &nbsp;&nbsp; </strong> {{ hotel.emailID }}</p>
+								<button (click)="companyAction(hotel.categoryname,hotel.selectedCountry,hotel.selectedState,hotel.cname)" class="btn btn-primary" style="background-color: #4CAF50">Book</button>
+							</div>
+						</div>			
+					</div>
+					<br/>
+				</div>
+			</div>
+			<!-- /section -->		
+		</div>
+	</div>
+</div>
+<!-- dashboard div end -->
+
+<!-- Loading Image Start -->
+<div class="row">
+	<div class="col-md-5 col-xs-5 col-lg-5">			
+		<img *ngIf="loadinggif" class="loadingimage" src="/assets/images/loadingimage.gif"/> 
+	</div>
+	<div class="col-md-7 col-xs-7 col-lg-7">
+	</div>
+</div>
+<!-- Loading Image End -->
+
+<div  class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':nodata}"  style="margin-top:3%;height: 200%;">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">  
+			<div class="modal-header">
+				<button type="button" class="close" aria-label="Close" (click)="onCloseHandled()"></button>
+				<h4 class="modal-title">Confirmation</h4>
+			</div>
+			<div class="modal-body">
+				<p>Work In Progress.</p>
+				<div class="modal-footer">
+					<button type="button" class="success" (click)="onCloseHandled()" >Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':noSearchinfo}">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" aria-label="Close" (click)="onCloseHandled()"></button>
+				<h4 class="modal-title">Alert</h4>
+			</div>
+			<div class="modal-body">
+				<p>No Data for Information.</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" (click)="onCloseHandled()" >Close</button>
+			</div>
+		</div>
+	</div>
+</div>  
+
+

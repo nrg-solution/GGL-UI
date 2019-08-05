@@ -1,0 +1,158 @@
+<app-header></app-header>
+
+<div>
+<br/>
+</div>
+
+<div class="col-md-6 col-md-offset-3">
+            <alert></alert>
+   
+    <div>
+            <div *ngIf="jobseekerSignUpdiv">
+
+        <h3>Job Seeker Sign Up</h3>    
+    <form name="jobseekerSignUpForm" (ngSubmit)="f.form.valid && resgisterJobSeeker()" #f="ngForm" novalidate>   
+        
+    <table  width="650">
+    
+    <!-- 1 row -->
+    
+    <tr> 
+    <td>
+    
+    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !name.valid }">
+            <label for="name">Full Name*</label>
+            <input type="text" class="form-control" placeholder="Eg-Jeff Alex" name="name" [(ngModel)]="model.name" #name="ngModel" required />
+            <div *ngIf="f.submitted && !name.valid" class="help-block">Full Name is required</div>
+        </div>
+        
+    
+    </td>
+   
+   <td width="40px;"></td>
+   
+    <td> 
+       
+    
+<div class="form-group">
+<label for="industry">Industry</label>            
+    <select class="form-control" name ="industry"  [(ngModel)]="model.industry" #industry="ngModel">
+    <option *ngFor="let industryName of industryList" value="{{ industryName }}"> {{ industryName }} 
+    </option> 
+    </select>
+</div>
+
+    </td>
+    
+    
+    </tr>
+    
+    
+    <!-- 2 row  -->
+    
+   
+      <tr> 
+    <td>
+
+    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !country.valid }">
+    <label for="state">Country*</label>            
+ 	<select class="form-control" name ="country"  [(ngModel)]="model.country" #country="ngModel" required>
+ 	<option *ngFor="let itemCountry of countryList" value="{{ itemCountry }}"> {{ itemCountry }} 
+ 	</option> 
+ 	</select>
+ 	            <div *ngIf="f.submitted && !country.valid" class="help-block">Country is required</div>
+	</div>
+
+    </td>
+   
+   <td width="40px;"></td>
+   
+<td> 
+
+ <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !phoneNumber.valid }">
+     <label for="phoneNumber">Phone Number</label>
+     <input type="text" class="form-control"  maxlength="15" pattern="[0-9]+" placeholder="Eg +91 8870477654" name="phoneNumber" [(ngModel)]="model.phoneNumber" #phoneNumber="ngModel" required />
+     <div *ngIf="f.submitted && !phoneNumber.valid" class="help-block">Number is required</div>
+ </div>
+ 
+    
+</td>
+
+    </tr>
+   
+    <!-- 3 row start -->
+    <tr> 
+    <td>
+    
+     <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !address.valid }">
+            <label for="address">Address</label>
+            <input type="text" class="form-control" placeholder="Eg-Jakarta,Indonesia" name="address"  [(ngModel)]="model.address" #address="ngModel" required />
+            <div *ngIf="f.submitted && !address.valid" class="help-block">Address is required</div>
+        </div>
+    
+    </td>
+   
+   <td width="40px;"></td>
+   
+    <td> 
+      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !qualification.valid }">
+            <label for="qualification">Qualification</label>
+            <input type="text" class="form-control" placeholder="Eg-BE" name="qualification" [(ngModel)]="model.qualification" #qualification="ngModel" required />
+            <div *ngIf="f.submitted && !qualification.valid" class="help-block">Qualification is required</div>
+        </div>
+    
+    </td>
+    
+    
+    </tr>
+    
+    <!-- 4 row end -->
+    
+    <tr>
+    <td>   <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !emailID.valid }">
+            <label for="emailID">Username/Email ID</label>
+            <input type="text" class="form-control" placeholder="Eg-jeff@outlook.com" name="emailID" [(ngModel)]="model.emailID" #emailID="ngModel" required />
+            <div *ngIf="f.submitted && !emailID.valid" class="help-block">Username is required</div>
+        </div>
+        </td>
+    <td width="40px;"></td> 
+    <td> 
+      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel" required />
+            <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>
+        </div>
+    </td>
+    <tr>
+    
+    <!-- 5 row end -->
+
+    </table>
+
+<!--        Submit button  -->  
+     
+        
+       
+        
+        <div class="form-group">
+            <button [disabled]="loading" class="btn btn-primary">Register</button>
+            <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+            <a [routerLink]="['/home']" class="btn btn-link">Cancel</a>
+        </div>
+
+    </form>
+    </div>
+</div>
+
+</div>
+
+ 
+<!-- Loading Image Start -->
+<div class="row">
+    <div class="col-md-5 col-xs-5 col-lg-5">			
+        <img *ngIf="loadinggif" class="loadingimage" src="/assets/images/loadingimage.gif"/> 
+    </div>
+    <div class="col-md-7 col-xs-7 col-lg-7">    
+    </div>
+</div>
+<!-- Loading Image End -->

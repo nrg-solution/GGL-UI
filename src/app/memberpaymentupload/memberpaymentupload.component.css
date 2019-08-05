@@ -1,0 +1,38 @@
+h2 , input , label , button , div {
+	font-family: "Times New Roman", Times, serif;
+}
+.backdrop{ 
+	background-color:rgba(0,0,0,0.6);
+	position:fixed;
+	top:0;
+	left:0;
+	width:100%;
+	height:100vh;
+}
+.modal-dialog {
+    -webkit-transform: translate(0,-50%);
+    -o-transform: translate(0,-50%);
+    transform: translate(0,-50%);
+    top: 20%;
+    margin: 0 auto;
+}
+.modal-header{
+    background-color:rgb(48, 105, 171);
+}
+.modal-content {
+    overflow:hidden;
+}
+
+.modal-title{
+	color:white;
+}	
+
+.success {
+	color:#fff;
+    padding: 6px 12px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: 4px;
+	background-color:rgb(48, 105, 171);
+	border-color: rgb(48, 105, 171);
+}

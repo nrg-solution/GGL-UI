@@ -1,0 +1,48 @@
+.fixed-nav-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    width: 100%;
+}
+
+.navbar-collapse {
+    background-color:#0078D7;
+    font-size: 18px;
+}
+
+.navbar-header {   
+    background-color:#0078D7;
+}
+.container-fluid {
+    background-color:#0078D7;
+    padding-top: 18px;
+    height: 88px;
+}
+
+.navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:focus, .navbar-inverse .navbar-nav>.open>a:hover {
+    color: #fff;
+    background-color: #0078D7;
+}
+
+.navbar-inverse .navbar-nav>li>a {
+    color: #f6f2f7;
+}
+
+.navbar-inverse .navbar-brand {
+    color: #f3eded;
+}
+#logoImage {
+    max-width: 59px;
+    margin-top: -15px;
+}
+
+.fa_custom {
+    color: #0099CC;
+}
+@media (max-width: 767px) {
+    .navbar-inverse .navbar-nav .open .dropdown-menu>li>a {
+        color: #f6f2f7;
+    }
+}
+

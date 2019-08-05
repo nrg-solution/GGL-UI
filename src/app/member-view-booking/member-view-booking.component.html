@@ -1,0 +1,674 @@
+<app-memberheader></app-memberheader>
+
+<br/><br/><br/>
+
+<!-- menu start -->
+<div *ngIf="menu2"  class="section" id="tutorial-django-forms-with-angularjs">
+    <div class="container" style="-webkit-overflow-scrolling: touch;">		
+      <h3>Booking Details View</h3>
+      <br/>
+      <div *ngFor="let x of myReservationList"  class="row">
+        <div class="col-sm-12 col-lg-6">	
+          <div class="row">
+            <div class="col-md-5 col-xs-5 col-lg-3">S.No</div>
+            <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+            <div class="col-md-5 col-xs-5 col-lg-6" id="country">{{x.sNo}}</div>
+          </div>
+          <div class="row">
+            <div class="col-md-5 col-xs-5 col-lg-3">Booking Type</div>
+            <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+            <div class="col-md-5 col-xs-5 col-lg-6" id="country">{{x.categoryname}}</div>
+          </div>
+          <div class="row">
+            <div class="col-md-5 col-xs-5 col-lg-3">Country</div>
+            <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+            <div class="col-md-5 col-xs-5 col-lg-6" id="country">{{x.selectedCountry}}</div>
+          </div>
+					<div class="row">
+              <div class="col-md-5 col-xs-5 col-lg-3">State</div>
+              <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+              <div class="col-md-6 col-xs-6 col-lg-6" id="country">{{x.selectedState}}</div>
+            </div>
+          <div class="row">
+            <div class="col-md-5 col-xs-5 col-lg-3">Booking Date</div>
+            <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+            <div class="col-md-5 col-xs-5 col-lg-6" id="country">{{x.bookingtime}}</div>
+          </div>
+          <div class="row">
+            <div class="col-md-5 col-xs-5 col-lg-3">Booking Status</div>
+            <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+            <div class="col-md-5 col-xs-5 col-lg-6" id="country">{{x.status}}</div>
+          </div>
+          <div class="row">
+            <div class="col-md-5 col-xs-5 col-lg-3">Invoice Number</div>
+            <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+            <div class="col-md-5 col-xs-5 col-lg-6" id="country">{{x.invoiceNumber}}</div>
+          </div>
+          <div class="row">
+            <div class="col-md-3 col-xs-3 col-lg-1"></div>
+            <div class="col-md-4 col-xs-4 col-lg-6" id="country">
+              <a (click)="ReservationCancel(x.invoiceNumber,x.userloginPrimaryKeyString)" class="btn btn-link">Cancel</a>
+              <a (click)="ReservationView(x.categoryname,x.invoiceNumber,x.userloginPrimaryKeyString)" class="btn btn-link">View</a>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 col-xs-12 col-lg-8"><hr></div>
+          </div>   
+        </div>
+      </div>
+    </div>
+</div>  
+<!-- menu end -->
+
+<div class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':nodatadialog}" style="margin-top:10%;height:75%">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()"></button>
+        <h4 class="modal-title">Confirmation</h4>
+      </div>
+      <div class="modal-body">  
+          <p>No Data for Information....</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" class="success" (click)="onCloseHandled()" >Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':foodreserView}" style="margin-top:3%;height:215%">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="padding: 10px;">
+        <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()"></button>
+        <h4 class="modal-title">Food Reservation View</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">Booking Type</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6" id="country">{{this.user.categoryname}}</div>
+        </div><br/>
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">Hotel Name</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6" id="country">{{this.user.cname}}</div>
+        </div><br/>
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">No.of Adult</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6" id="country">{{this.user.noofadult}}</div>
+        </div><br/>
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">No.of Child</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6" id="country">{{this.user.noofchild}}</div>
+        </div><br/>
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">No.of Rooms</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6" id="country">{{this.user.noofrooms}}</div>
+        </div><br/>
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">Booking Date</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6" id="country">{{this.user.financialtime}}</div>
+        </div><br/>		
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">Booking Time</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6" id="country">{{this.user.bookingtime}}</div>
+        </div><br/>
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">Booking Status</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6" id="country">{{this.user.bookingStatus}}</div>
+        </div><br/>
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">No.of Table</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6" id="country">{{this.user.noofTables}}</div>
+        </div><br/>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="success" (click)="onCloseHandled()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':ticketreserView}" style="margin-top:3%;height:215%">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="padding: 10px;">
+        <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()"></button>
+        <h4 class="modal-title">Ticket Reservation View</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">Air Name</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6" id="country">{{this.user.airname}}</div>
+        </div><br/>
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">Departure Date</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6" id="country">{{this.user.financialtime}}</div>
+        </div><br/>
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">Return Date</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6" id="country">{{this.user.bookingtime}}</div>
+        </div><br/>
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">From Place</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6" id="country">{{this.user.fromplace}}</div>
+        </div><br/>
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">To Place</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6" id="country">{{this.user.toplace}}</div>
+        </div><br/>
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">No.of Pax</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6" id="country">{{this.user.noofpax}}</div>
+        </div><br/>		
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">Trip Type</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6" id="country">{{this.user.triptype}}</div>
+        </div><br/>
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">Booking Status</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6" id="country">{{this.user.bookingStatus}}</div>
+        </div><br/>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="success" (click)="onCloseHandled()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':tourreserView}" style="margin-top:3%;height:215%">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="padding: 10px;">
+        <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()"></button>
+        <h4 class="modal-title">Tour & Travel Reservation View</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">Departure Name</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6" id="country">{{this.user.departurename}}</div>
+        </div><br/>
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">Arrival Date</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6" id="country">{{this.user.financialtime}}</div>
+        </div><br/>
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">Visiting Country</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6" id="country">{{this.user.visitcountry}}</div>
+        </div><br/>
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">Category</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6" id="country">{{this.user.category}}</div>
+        </div><br/>
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">No.of Adult</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6" id="country">{{this.user.noofadult}}</div>
+        </div><br/>
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">No.of Child</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6" id="country">{{this.user.noofchild}}</div>
+        </div><br/>	
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">Booking Status</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6" id="country">{{this.user.bookingStatus}}</div>
+        </div><br/>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="success" (click)="onCloseHandled()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':financereserView}" style="margin-top:3%;height:215%">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="padding: 10px;">
+        <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()"></button>
+        <h4 class="modal-title">Financial Solution Reservation View</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">Appoinment Date</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6" id="country">{{this.user.financialtime}}</div>
+        </div><br/>
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">Booking Time</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6" id="country">{{this.user.bookingtime}}</div>
+        </div><br/>
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">No.of Pax</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6" id="country">{{this.user.noofpax}}</div>
+        </div><br/>
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">Booking Status</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6" id="country">{{this.user.bookingStatus}}</div>
+        </div><br/>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="success" (click)="onCloseHandled()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+      
+<div class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':educationreserView}" style="margin-top:3%;height:215%">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="padding: 10px;">
+        <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()"></button>
+        <h4 class="modal-title">Education Reservation View</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">University</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6" id="country">{{this.user.university}}</div>
+        </div><br/>
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">Study</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6" id="country">{{this.user.study}}</div>
+        </div><br/>
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">Year of Study</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6" id="country">{{this.user.yearofstudy}}</div>
+        </div><br/>
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">Booking Status</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6" id="country">{{this.user.bookingStatus}}</div>
+        </div><br/>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="success" (click)="onCloseHandled()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':insurancereserView}" style="margin-top:3%;height:215%">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="padding: 10px;">
+        <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()"></button>
+        <h4 class="modal-title">Insurance Reservation View</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">Category Insurance</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6" id="country">{{this.user.categoryinsurance}}</div>
+        </div><br/>
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">Company Insurance</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6" id="country">{{this.user.companyinsurance}}</div>
+        </div><br/>
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">Appoinment date</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6" id="country">{{this.user.financialtime}}</div>
+        </div><br/>
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">Booking Time</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6" id="country">{{this.user.bookingtime}}</div>
+        </div><br/>
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">No.of Pax</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6" id="country">{{this.user.noofpax}}</div>
+        </div><br/>
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">Booking Status</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6" id="country">{{this.user.bookingStatus}}</div>
+        </div><br/>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="success" (click)="onCloseHandled()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':meditreatreserView}" style="margin-top:3%;height:215%">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="padding: 10px;">
+        <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()"></button>
+        <h4 class="modal-title">Medical Treatment Reservation View</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">Hospital Name</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6" id="country">{{this.user.hospitalname}}</div>
+        </div><br/>
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">Appoinment date</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6" id="country">{{this.user.financialtime}}</div>
+        </div><br/>
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">Booking Time</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6" id="country">{{this.user.bookingtime}}</div>
+        </div><br/>
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">No.of Pax</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6" id="country">{{this.user.noofpax}}</div>
+        </div><br/>
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">Kind of Treatment</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6" id="country">{{this.user.treatment}}</div>
+        </div><br/>
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">Booking Status</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6" id="country">{{this.user.bookingStatus}}</div>
+        </div><br/>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="success" (click)="onCloseHandled()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':healthreserView}" style="margin-top:3%;height:215%">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="padding: 10px;">
+        <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()"></button>
+        <h4 class="modal-title">Health Accesories Reservation View</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">category Product</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6" id="country">{{this.user.categoryproduct}}</div>
+        </div><br/>
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">List Product</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6" id="country">{{this.user.listproduct}}</div>
+        </div><br/>
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">Quantity</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6" id="country">{{this.user.quantity}}</div>
+        </div><br/>
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">Booking Status</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6" id="country">{{this.user.bookingStatus}}</div>
+        </div><br/>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="success" (click)="onCloseHandled()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':herbalreserView}" style="margin-top:3%;height:215%">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="padding: 10px;">
+        <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()"></button>
+        <h4 class="modal-title">Herbal Product Reservation View</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">category Product</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6" id="country">{{this.user.categoryproduct}}</div>
+        </div><br/>
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">Quantity</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6" id="country">{{this.user.quantity}}</div>
+        </div><br/>
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">Booking Status</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6" id="country">{{this.user.bookingStatus}}</div>
+        </div><br/>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="success" (click)="onCloseHandled()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':umrahreserView}" style="margin-top:3%;height:215%">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="padding: 10px;">
+        <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()"></button>
+        <h4 class="modal-title">Herbal Product Reservation View</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">Appoinment Date</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6" id="country">{{this.user.financialtime}}</div>
+        </div><br/>
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">Arrival Date</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6" id="country">{{this.user.bookingtime}}</div>
+        </div><br/>
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">No.of Pax</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6" id="country">{{this.user.noofpax}}</div>
+        </div><br/>
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">Category</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6" id="country">{{this.user.category}}</div>
+        </div><br/>
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">Booking Status</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6" id="country">{{this.user.bookingStatus}}</div>
+        </div><br/>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="success" (click)="onCloseHandled()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':softhardreserView}" style="margin-top:3%;height:215%">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="padding: 10px;">
+        <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()"></button>
+        <h4 class="modal-title">Software & Hardware Reservation View</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">Company Name</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6" id="country">{{this.user.cname}}</div>
+        </div><br/>
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">List Product</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6" id="country">{{this.user.listproduct}}</div>
+        </div><br/>
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">Appoinment Date</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6" id="country">{{this.user.financialtime}}</div>
+        </div><br/>
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">Booing Time</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6" id="country">{{this.user.bookingtime}}</div>
+        </div><br/>
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">Booking Status</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6" id="country">{{this.user.bookingStatus}}</div>
+        </div><br/>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="success" (click)="onCloseHandled()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':energyreserView}" style="margin-top:3%;height:215%">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="padding: 10px;">
+        <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()"></button>
+        <h4 class="modal-title">Energy Saving Purchasing View</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">List Product</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6" id="country">{{this.user.listproduct}}</div>
+        </div><br/>
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">Quantity</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6" id="country">{{this.user.quantity}}</div>
+        </div><br/>
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">Booking Status</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6" id="country">{{this.user.bookingStatus}}</div>
+        </div><br/>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="success" (click)="onCloseHandled()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Loading Image Start -->
+<div class="row">
+  <div class="col-md-5 col-xs-5 col-lg-5">			
+    <img *ngIf="loadinggif" class="loadingimage" src="/assets/images/loadingimage.gif"/> 
+  </div>
+  <div class="col-md-7 col-xs-7 col-lg-7">
+  </div>
+</div>
+<!-- Loading Image End -->
+
+<!-- Remove Category start -->
+<div class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':reservationRemove}" style="margin-top:5%;height:150%">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="padding: 10px;">
+        <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()"></button>
+        <h4 class="modal-title">Confirmation</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">Booking Type</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6">{{ user.categoryname }}</div>
+        </div><br/>	
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">Invoice Number</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6">{{ user.invoiceNumber }}</div>
+        </div><br/>	
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">Booking Date</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6">{{ user.financialtime }}</div>
+        </div><br/>	
+        <div class="row">
+          <div class="col-md-5 col-xs-5 col-lg-3">Booking Time</div>
+          <div class="col-md-1 col-xs-1 col-lg-1">:</div>
+          <div class="col-md-6 col-xs-6 col-lg-6">{{ user.bookingtime }}</div>
+        </div><br/>	
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" class="success" (click)="onDeleteBooking(user.invoiceNumber,user.userLoginPrimaryKey)">Yes</button>
+        <button type="button" class="btn btn-default" class="success" (click)="onCloseHandled()">No</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Remove Category end -->
+
+<!-- Yes To Remvoe category start -->
+<div class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':bookingRemovesuccess}" style="margin-top:3%;height:75%">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()"></button>
+        <h4 class="modal-title">Removed Booking</h4>
+      </div>
+      <div class="modal-body">  
+        <p>Booking is deleted Successfully .... </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" class="success" (click)="onCloseHandled()" >Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':bookingRemovefail}" style="margin-top:3%;height:75%">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">    
+        <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()"></button>
+        <h4 class="modal-title">Removed Booking</h4>
+      </div>
+      <div class="modal-body">
+        <p>Booking is not deleted .... </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" class="success" (click)="onCloseHandled()" >Close</button>
+      </div>
+    </div>
+  </div>
+</div>

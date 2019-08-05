@@ -1,0 +1,47 @@
+<nav class="navbar navbar-inverse">
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>                        
+    </button>
+  
+    <a class="navbar-brand" (click)="mainHeader()"> 
+        <div class="navbar-header">       
+          <img [src]="imgsrc" id="logoImage">        
+        </div> 
+    </a>
+  
+  </div>
+  <div class="collapse navbar-collapse" id="myNavbar">
+    <ul class="nav navbar-nav">
+      <!-- <li class="active"><a href="#">Member</a></li> -->
+      <!--   <li class="active"><a href="#">Employer</a></li> -->
+
+      <li><a [routerLink]="['/member-myprofile']">My Profile</a></li>
+      <li><a [routerLink]="['/member-withdraw']">Withdraw</a></li> 
+      <li><a [routerLink]="['/member-myglgmember']">My GLG Member</a></li> 
+      <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Investment <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a [routerLink]="['/member-purchaseunit']"> <span class="glyphicon glyphicon-chevron-right"></span> Purchase Unit</a></li>
+          <li><a [routerLink]="['/memberunitstatus']"> <span class="glyphicon glyphicon-chevron-right"></span> My Status</a></li>
+    <li><a [routerLink]="['/member-payment']"> <span class="glyphicon glyphicon-chevron-right"></span> Payment Options</a></li>
+
+    <li><a [routerLink]="['/investment-paymentupload']"> <span class="glyphicon glyphicon-chevron-right"></span> Upload Payment</a></li>
+
+  </ul>
+      </li>
+      <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Booking <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <!-- <li><a [routerLink]="['/member-new-booking']"> <span class="glyphicon glyphicon-chevron-right"></span> New Booking </a></li> -->
+          <li><a [routerLink]="['/member-view-booking']"> <span class="glyphicon glyphicon-chevron-right"></span> My Booking </a></li>
+        </ul>
+      </li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+        <li><a [routerLink]="['/login']"><span class="fa fa-sign-out"></span> Log out</a></li>
+      </ul>
+  </div>
+</nav>

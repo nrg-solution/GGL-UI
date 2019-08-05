@@ -1,0 +1,258 @@
+<app-memberheader></app-memberheader>
+
+<form name="form6" (ngSubmit)="f.form.valid && updateMyProfile()" #f="ngForm" novalidate>
+  <div *ngIf="menu6">
+    <div class="container">
+      <br/>
+      <div class="row">
+        <div class="col-lg-9 col-xs-9 col-sm-9"></div>
+        <div class="col-lg-3 col-xs-3 col-sm-3">
+            <button  (click)="onMenuClick('ProfileEdit')" class="btn btn-primary">Edit</button>
+          </div>
+      </div>
+      <div  class="row">
+        <div class="col-sm-8">      
+          <h3> <a> My Profile view  </a></h3> <br/> <br/>
+          <div class="row">
+            <div class="col-lg-3 col-md-5 col-xs-5">User name</div>
+            <div class="col-lg-2 col-md-2 col-xs-2">:</div>
+            <div class="col-lg-3 col-md-5 col-xs-5">{{ this.user.username }}</div>
+          </div><br/>
+          <div class="row">
+            <div class="col-lg-3 col-md-5 col-xs-5">First name</div>
+            <div class="col-lg-2 col-md-2 col-xs-2">:</div>
+            <div class="col-lg-3 col-md-5 col-xs-5">{{ this.user.firstName }}</div>
+          </div><br/>
+          <div class="row">
+            <div class="col-lg-3 col-md-5 col-xs-5">Last name</div>
+            <div class="col-lg-2 col-md-2 col-xs-2">:</div>
+            <div class="col-lg-3 col-md-5 col-xs-5">{{ this.user.lastName }}</div>
+          </div><br/>
+          <div class="row">
+            <div class="col-lg-3 col-md-5 col-xs-5">Member ID </div>
+            <div class="col-lg-2 col-md-2 col-xs-2">:</div>
+            <div class="col-lg-3 col-md-5 col-xs-5">{{ this.user.memberID }}</div>
+          </div><br/>
+          <div class="row">
+            <div class="col-lg-3 col-md-5 col-xs-5">Member type</div>
+            <div class="col-lg-2 col-md-2 col-xs-2">:</div>
+            <div class="col-lg-3 col-md-5 col-xs-5">{{ this.user.actType }}</div>
+          </div><br/>
+          <div class="row">
+            <div class="col-lg-3 col-md-5 col-xs-5">Bank name</div>
+            <div class="col-lg-2 col-md-2 col-xs-2">:</div>
+            <div class="col-lg-3 col-md-5 col-xs-5">{{ this.user.bankName }}</div>
+          </div><br/>
+          <div class="row">
+            <div class="col-lg-3 col-md-5 col-xs-5">Bank A/C number</div>
+            <div class="col-lg-2 col-md-2 col-xs-2">:</div>
+            <div class="col-lg-3 col-md-5 col-xs-5">{{ this.user.bankAcctNumber }}</div>
+          </div><br/>
+          <div class="row">
+            <div class="col-lg-3 col-md-5 col-xs-5">Phone number</div>
+            <div class="col-lg-2 col-md-2 col-xs-2">:</div>
+            <div class="col-lg-3 col-md-5 col-xs-5">{{ this.user.phoneNumber }}</div>
+          </div><br/>
+          <div class="row">
+            <div class="col-lg-3 col-md-5 col-xs-5">Email</div>
+            <div class="col-lg-2 col-md-2 col-xs-2">:</div>
+            <div class="col-lg-3 col-md-5 col-xs-5">{{ this.user.emailID }}</div>
+          </div><br/>
+          <div class="row">
+            <div class="col-lg-3 col-md-5 col-xs-5">Country</div>
+            <div class="col-lg-2 col-md-2 col-xs-2">:</div>
+            <div class="col-lg-3 col-md-5 col-xs-5">{{ this.user.country }}</div>
+          </div><br/>
+          <div class="row">
+            <div class="col-lg-3 col-md-5 col-xs-5">Total Overriding</div>
+            <div class="col-lg-2 col-md-2 col-xs-2">:</div>
+            <div class="col-lg-3 col-md-5 col-xs-5">{{ this.user.memberOvrriding }}</div>
+          </div><br/>
+          <div class="row">
+            <div class="col-lg-3 col-md-5 col-xs-5">Total Commission</div>
+            <div class="col-lg-2 col-md-2 col-xs-2">:</div>
+            <div class="col-lg-3 col-md-5 col-xs-5"><p class="text-info">{{ this.user.memberCommition }}</p></div>						
+          </div><br/>
+          <div class="row">
+            <div class="col-lg-3 col-md-5 col-xs-5">My Group name</div>
+            <div class="col-lg-2 col-md-2 col-xs-2">:</div>
+            <div class="col-lg-3 col-md-5 col-xs-5">
+              <p class="text-info">{{ this.user.groupName }}</p>
+            </div>				
+          </div><br/>
+        </div>
+      </div> 
+    </div> 
+  </div>
+
+  <div *ngIf="profilediv">
+      <br/>
+      <div class="container">
+        <div  class="row">
+          <div class="col-sm-8">      
+            <h3> <a> My Profile Edit  </a></h3> <br/> <br/>              
+            <div class="row">
+                <div class="col-lg-3 col-md-5 col-xs-5">User name</div>
+                <div class="col-lg-2 col-md-2 col-xs-2">:</div>
+                <div class="col-lg-3 col-md-5 col-xs-5">{{ this.user.username }}</div>
+            </div><br/>
+            <div class="row">
+              <div class="col-lg-3 col-md-5 col-xs-5">Member ID </div>
+              <div class="col-lg-2 col-md-2 col-xs-2">:</div>
+              <div class="col-lg-3 col-md-5 col-xs-5">{{ this.user.memberID }}</div>
+            </div><br/>
+            <div class="row">
+                <div class="col-lg-3 col-md-5 col-xs-5">Member type</div>
+                <div class="col-lg-2 col-md-2 col-xs-2">:</div>
+                <div class="col-lg-3 col-md-5 col-xs-5">{{ this.user.actType }}</div>
+            </div><br/>
+            <div class="row">
+                <div class="col-lg-3 col-md-5 col-xs-5">Total Overriding</div>
+                <div class="col-lg-2 col-md-2 col-xs-2">:</div>
+                <div class="col-lg-3 col-md-5 col-xs-5">{{ this.user.memberOvrriding }}</div>
+            </div><br/>
+            <div class="row">
+                <div class="col-lg-3 col-md-5 col-xs-5">Total Commission</div>
+                <div class="col-lg-2 col-md-2 col-xs-2">:</div>
+                <div class="col-lg-3 col-md-5 col-xs-5">{{ this.user.memberCommition }}</div>						
+            </div><br/>
+            <div class="row">
+                <div class="col-lg-3 col-md-5 col-xs-5">My Group name</div>
+                <div class="col-lg-2 col-md-2 col-xs-2">:</div>
+                <div class="col-lg-3 col-md-5 col-xs-5">{{ this.user.groupName }}
+                </div>				
+            </div><br/> 
+            <div class="row">
+                  <div class="col-lg-3 col-md-5 col-xs-5">First name</div>
+                  <div class="col-lg-2 col-md-2 col-xs-2">:</div>
+                  <div class="col-lg-3 col-md-5 col-xs-5">
+                    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !firstName.valid }">
+                      <input type="text" class="form-control" name="firstName" value="{{ this.user.firstName  }}" [(ngModel)]="this.user.firstName" #firstName="ngModel" required />
+                      <div *ngIf="f.submitted && !firstName.valid" class="help-block">First Name is required</div>
+                    </div>
+                  </div>
+              </div><br/>
+              <div class="row">
+                  <div class="col-lg-3 col-md-5 col-xs-5">Last name</div>
+                  <div class="col-lg-2 col-md-2 col-xs-2">:</div>
+                  <div class="col-lg-3 col-md-5 col-xs-5">
+                      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !lastName.valid }">
+                          <input type="text" class="form-control" name="lastName" [(ngModel)]="this.user.lastName" #lastName="ngModel" required />
+                          <div *ngIf="f.submitted && !lastName.valid" class="help-block">Last Name is required</div>
+                        </div>
+                  </div>
+              </div><br/>      
+              <div class="row">
+                  <div class="col-lg-3 col-md-5 col-xs-5">Bank name</div>
+                  <div class="col-lg-2 col-md-2 col-xs-2">:</div>
+                  <div class="col-lg-3 col-md-5 col-xs-5">
+                      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !bankName.valid }">
+                          <input type="text" class="form-control" name="bankName" [(ngModel)]="this.user.bankName" #bankName="ngModel" required />
+                          <div *ngIf="f.submitted && !bankName.valid" class="help-block">Bank Name is required</div>	
+                      </div>
+                  </div>
+              </div><br/>
+              <div class="row">
+                  <div class="col-lg-3 col-md-5 col-xs-5">Bank A/C number</div>
+                  <div class="col-lg-2 col-md-2 col-xs-2">:</div>
+                  <div class="col-lg-3 col-md-5 col-xs-5">
+                      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !bankAcctNumber.valid }">
+                          <input type="text" class="form-control" name="bankAcctNumber" [(ngModel)]="this.user.bankAcctNumber" #bankAcctNumber="ngModel" required />
+                          <div *ngIf="f.submitted && !bankAcctNumber.valid" class="help-block">A/C is required</div>
+                        </div>
+                  </div>
+              </div><br/>
+              <div class="row">
+                  <div class="col-lg-3 col-md-5 col-xs-5">Phone number</div>
+                  <div class="col-lg-2 col-md-2 col-xs-2">:</div>
+                  <div class="col-lg-3 col-md-5 col-xs-5">
+                    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !phoneNumber.valid }">
+                      <input type="text" class="form-control" name="phoneNumber" [(ngModel)]="this.user.phoneNumber" #phoneNumber="ngModel" required />
+                      <div *ngIf="f.submitted && !phoneNumber.valid" class="help-block">Number is required</div>
+                    </div>
+                  </div>
+              </div><br/> 
+              <div class="row">
+                  <div class="col-lg-3 col-md-5 col-xs-5">Email</div>
+                  <div class="col-lg-2 col-md-2 col-xs-2">:</div>
+                  <div class="col-lg-3 col-md-5 col-xs-5">
+                      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !emailID.valid }">
+                          <input type="text" class="form-control" name="emailID" [(ngModel)]="this.user.emailID" #emailID="ngModel" required />
+                          <div *ngIf="f.submitted && !emailID.valid" class="help-block">Email ID is required</div>
+                        </div>
+                  </div>
+              </div><br/>   
+              <div class="row">
+                  <div class="col-lg-3 col-md-5 col-xs-5">Country</div>
+                  <div class="col-lg-2 col-md-2 col-xs-2">:</div>
+                  <div class="col-lg-3 col-md-5 col-xs-5">
+                    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !selectedCountry.valid }">
+                      <select class="form-control" name ="selectedCountry"  [(ngModel)]="this.user.country" #selectedCountry="ngModel" required>
+                        <option *ngFor="let itemCountry of countryList" value="{{ itemCountry }}"> {{ itemCountry }} 
+                        </option> 
+                      </select>
+                      <div *ngIf="f.submitted && !selectedCountry.valid" class="help-block">Country is required</div>
+                    </div>
+                  </div>
+              </div><br/> 
+              <div class="form-group">
+                  <button (click)="onMenuClick('myprofileback')" class="btn btn-primary">Back</button>
+                  <button class="btn btn-primary">Update</button>
+                  <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+              </div> 
+          </div>
+      </div>
+    </div>  
+  </div>
+</form>
+
+<div class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':networkissue}" style="margin-top:3%;height:75%">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()"></button>
+        <h4 class="modal-title">Confirmation</h4>
+      </div>
+      <div class="modal-body">  
+          <p>Network Issue Please try again.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" class="success" (click)="onCloseHandled()" >Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':successdialog}" style="margin-top:3%;height:75%">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()"></button>
+        <h4 class="modal-title">Confirmation</h4>
+      </div>
+      <div class="modal-body">  
+          <p>Information was Updated Successfully....</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" class="success" (click)="onCloseHandled()" >Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':failuredialog}" style="margin-top:3%;height:75%">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()"></button>
+        <h4 class="modal-title">Confirmation</h4>
+      </div>
+      <div class="modal-body">  
+          <p>Information was not Updated ....</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" class="success" (click)="onCloseHandled()" >Close</button>
+      </div>
+    </div>
+  </div>
+</div>
